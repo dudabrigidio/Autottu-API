@@ -4,6 +4,18 @@
 
 ---
 
+
+## 🧪 Integrantes do Projeto
+
+Maria Eduarda Brigidio - RM558575 
+
+André Luís Mesquita de Abreu- RM558159
+
+Rafael Bompadre Lima - RM556459
+
+---
+
+
 ## 🧪 Integrantes do Projeto
 
 Maria Eduarda Brigidio - RM558575 
