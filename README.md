@@ -6,8 +6,8 @@
 
 ## 🚀 Tecnologias Utilizadas
 
-- [.NET 8.0 (ASP.NET Core)]
-- [Swagger]
+- .NET 8.0 (ASP.NET Core)
+- Swagger
 - Entity Framework Core
 - Oracle SQL
 
