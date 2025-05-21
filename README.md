@@ -1,4 +1,4 @@
-﻿# 🧩 NAutottu-API (.NET ASP.NET Core)
+﻿# 🧩 Autottu-API (.NET ASP.NET Core)
 
 > API RESTful desenvolvida em ASP.NET Core com documentação interativa via Swagger.
 
