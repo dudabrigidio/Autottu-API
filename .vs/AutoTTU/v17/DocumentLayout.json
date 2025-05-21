@@ -1,0 +1,308 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\models\\slot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\models\\slot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\controllers\\motoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\controllers\\motoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\models\\motos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\models\\motos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\controllers\\checkinscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\controllers\\checkinscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\migrations\\20250509134329_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\migrations\\20250509134329_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\autottu.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\autottu.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\connection\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\connection\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\models\\checkin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\models\\checkin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\autottu.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\autottu.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\autottu.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\autottu.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|c:\\users\\dudab\\source\\repos\\autottu\\autottu\\migrations\\20250509141124_updatemigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CFF9AD6-8063-435E-8223-CC65481C010D}|AutoTTU\\AutoTTU.csproj|solutionrelative:autottu\\migrations\\20250509141124_updatemigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "AutoTTU\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Properties\\launchSettings.json",
+              "RelativeToolTip": "AutoTTU\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-06T18:20:40.119Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Motos.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Motos.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Models\\Motos.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Motos.cs",
+              "RelativeToolTip": "AutoTTU\\Models\\Motos.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwCQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T18:22:20.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Slot.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Slot.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Models\\Slot.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Slot.cs",
+              "RelativeToolTip": "AutoTTU\\Models\\Slot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:25:34.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "AutoTTU\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T13:44:11.552Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "AutoTTU\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:20:38.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\appsettings.json",
+              "RelativeDocumentMoniker": "AutoTTU\\appsettings.json",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\appsettings.json",
+              "RelativeToolTip": "AutoTTU\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-05T18:06:00.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MotosController.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\MotosController.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Controllers\\MotosController.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\MotosController.cs",
+              "RelativeToolTip": "AutoTTU\\Controllers\\MotosController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAGsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:13:52.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CheckinsController.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\CheckinsController.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Controllers\\CheckinsController.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Controllers\\CheckinsController.cs",
+              "RelativeToolTip": "AutoTTU\\Controllers\\CheckinsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:18:55.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "20250509141124_UpdateMigration.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Migrations\\20250509141124_UpdateMigration.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Migrations\\20250509141124_UpdateMigration.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Migrations\\20250509141124_UpdateMigration.cs",
+              "RelativeToolTip": "AutoTTU\\Migrations\\20250509141124_UpdateMigration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:11:25.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20250509134329_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Migrations\\20250509134329_InitialCreate.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Migrations\\20250509134329_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Migrations\\20250509134329_InitialCreate.cs",
+              "RelativeToolTip": "AutoTTU\\Migrations\\20250509134329_InitialCreate.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAuwEgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:02:09.708Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AutoTTU.csproj",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
+              "RelativeDocumentMoniker": "AutoTTU\\AutoTTU.csproj",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
+              "RelativeToolTip": "AutoTTU\\AutoTTU.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-09T13:47:36.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Usuario.cs",
+              "RelativeToolTip": "AutoTTU\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAzwBIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:31:55.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Connection\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Connection\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Connection\\AppDbContext.cs",
+              "RelativeToolTip": "AutoTTU\\Connection\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:40:20.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Program.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Program.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Program.cs",
+              "RelativeToolTip": "AutoTTU\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T13:27:11.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Checkin.cs",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Checkin.cs",
+              "RelativeDocumentMoniker": "AutoTTU\\Models\\Checkin.cs",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\Models\\Checkin.cs",
+              "RelativeToolTip": "AutoTTU\\Models\\Checkin.cs",
+              "ViewState": "AgIAAAMAAACgrV8xjjIfwA4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T12:31:42.799Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AutoTTU.http",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.http",
+              "RelativeDocumentMoniker": "AutoTTU\\AutoTTU.http",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.http",
+              "RelativeToolTip": "AutoTTU\\AutoTTU.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-05-07T13:19:24.627Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AutoTTU",
+              "DocumentMoniker": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
+              "RelativeDocumentMoniker": "AutoTTU\\AutoTTU.csproj",
+              "ToolTip": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
+              "RelativeToolTip": "AutoTTU\\AutoTTU.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-05T18:06:13.5Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
