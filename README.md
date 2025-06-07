@@ -7,9 +7,9 @@
 
 ## 🧪 Integrantes do Projeto
 
-Maria Eduarda Brigidio - RM558575 
-
 André Luís Mesquita de Abreu- RM558159
+
+Maria Eduarda Brigidio - RM558575 
 
 Rafael Bompadre Lima - RM556459
 
@@ -32,6 +32,11 @@ Rafael Bompadre Lima - RM556459
 - [.NET SDK 6.0+]
 - [Visual Studio 2022+]
 - Banco de dados (Oracle SQL)
+- Instalar pacotes:
+  - Microsoft.EntityFrameworkCore
+  - Microsoft.EntityFrameworkCore.Tools
+  - Oracle.EntityFrameworkCore
+  - Microsoft.VisualStudio.Web.CodeGeneration.Design 8.0
 
 
 ### ▶️ Rodando a API localmente
@@ -41,7 +46,7 @@ Rafael Bompadre Lima - RM556459
 git clone https://github.com/dudabrigidio/Autottu-API.git
 
 # Acesse a pasta do projeto
-cd Autottu
+cd hesol
 
 # Restaure as dependências
 dotnet restore
@@ -52,5 +57,5 @@ dotnet build
 # Execute o projeto
 dotnet run
 
-# O Projeto irá rdar na porta: http://localhost:5143
+# O Projeto irá rdar na porta: http://localhost:5291
 
