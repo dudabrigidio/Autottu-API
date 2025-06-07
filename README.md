@@ -1,4 +1,4 @@
-﻿# 🧩 API HESOL (.NET ASP.NET Core)
+﻿# 🧩 AUTOTTU-API (.NET ASP.NET Core)
 
 > API RESTful desenvolvida em ASP.NET Core com documentação interativa via Swagger.
 
