@@ -21,6 +21,9 @@ namespace AutoTTU.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Lista de todos os usuários cadastrados
+        /// </summary>
         // GET: api/Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
@@ -28,6 +31,10 @@ namespace AutoTTU.Controllers
             return await _context.Usuario.ToListAsync();
         }
 
+        /// <summary>
+        /// Busca de um usuário pelo ID
+        /// </summary>
+        /// <param name="id">ID do usuário</param>
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
@@ -42,6 +49,24 @@ namespace AutoTTU.Controllers
             return usuario;
         }
 
+        /// <summary>
+        /// Alteração de um usuário já cadastrado
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/Usuarios
+        ///        {
+        ///            "idUsuario": 1,
+        ///            "nome": "Gabriel Silva",
+        ///            "email": "gabriel@silva.com",
+        ///            "senha": "12345",
+        ///            "telefone": "11987654321"
+        ///         }
+        ///       
+        /// </remarks>
+        /// 
+        /// <param name="id">ID do usuário</param>
         // PUT: api/Usuarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -72,8 +97,24 @@ namespace AutoTTU.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Usuarios
+        /// <summary>
+        /// Cadastro um usuário
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     POST/api/Usuarios
+        ///        {
+        ///            "idUsuario": 1,
+        ///            "nome": "Gabriel Silva",
+        ///            "email": "gabriel@silva.com",
+        ///            "senha": "12345",
+        ///            "telefone": "11987654321"
+        ///         }
+        ///       
+        /// </remarks>
+        /// 
+        /// <param name="id">ID do usuário</param>
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
@@ -84,6 +125,10 @@ namespace AutoTTU.Controllers
             return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
         }
 
+        /// <summary>
+        /// Apagar um usuário pelo ID
+        /// </summary>
+        /// <param name="id">ID do usuário</param>
         // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)

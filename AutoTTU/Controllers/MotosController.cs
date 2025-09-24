@@ -21,6 +21,9 @@ namespace AutoTTU.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Lista de todas as motos cadastradas
+        /// </summary>
         // GET: api/Motos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Motos>>> GetMotos()
@@ -28,6 +31,10 @@ namespace AutoTTU.Controllers
             return await _context.Motos.ToListAsync();
         }
 
+        /// <summary>
+        /// Busca de uma moto pelo ID
+        /// </summary>
+        /// <param name="id">ID da moto</param>
         // GET: api/Motos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Motos>> GetMotos(int id)
@@ -42,7 +49,29 @@ namespace AutoTTU.Controllers
             return motos;
         }
 
-        // PUT: api/Motos/5
+        /// <summary>
+        /// Alteração de uma moto já cadastrada
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/Motos
+        ///        {
+        ///          "idMoto": 1,
+        ///          "modelo": "H2",
+        ///          "marca": "Honda",
+        ///          "ano": 2020,
+        ///          "placa": "FDP3467",
+        ///          "ativoChar": "s",
+        ///          "status": true,
+        ///          "fotoUrl": "123456plcg"
+        ///        }
+        ///       
+        /// </remarks>
+        /// 
+        /// <param name="id">ID da moto</param>
+
+
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMotos(int id, Motos motos)
@@ -73,8 +102,25 @@ namespace AutoTTU.Controllers
             return NoContent();
         }
 
-        // POST: api/Motos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Cadastro de uma moto
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     POST/api/Motos
+        ///        {
+        ///          "idMoto": 1,
+        ///          "modelo": "H2",
+        ///          "marca": "Honda",
+        ///          "ano": 2020,
+        ///          "placa": "FDP3467",
+        ///          "ativoChar": "s",
+        ///          "status": true,
+        ///          "fotoUrl": "123456plcg"
+        ///        }
+        ///       
+        /// </remarks>
         [HttpPost]
         public async Task<ActionResult<Motos>> PostMotos(Motos motos)
         {
@@ -84,6 +130,10 @@ namespace AutoTTU.Controllers
             return CreatedAtAction("GetMotos", new { id = motos.IdMoto }, motos);
         }
 
+        /// <summary>
+        /// Apagar uma moto pelo ID
+        /// </summary>
+        /// <param name="id">ID da moto</param>
         // DELETE: api/Motos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMotos(int id)

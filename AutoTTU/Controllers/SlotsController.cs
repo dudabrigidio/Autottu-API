@@ -21,6 +21,9 @@ namespace AutoTTU.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Lista de todos os slots (espaços de estacionamento) cadastrados
+        /// </summary>
         // GET: api/Slots
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Slot>>> GetSlot()
@@ -28,6 +31,10 @@ namespace AutoTTU.Controllers
             return await _context.Slot.ToListAsync();
         }
 
+        /// <summary>
+        /// Busca de um slot pelo ID
+        /// </summary>
+        /// <param name="id">ID do slot</param>
         // GET: api/Slots/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Slot>> GetSlot(int id)
@@ -42,6 +49,23 @@ namespace AutoTTU.Controllers
             return slot;
         }
 
+        /// <summary>
+        /// Alteração de um slot já cadastrado
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/Slots
+        ///        {
+        ///             "idSlot": 1,
+        ///             "idMoto": 1,
+        ///             "ativoChar": "s",
+        ///             "ocupado": true
+        ///        }
+        ///       
+        /// </remarks>
+        /// 
+        /// <param name="id">ID do usuário</param>
         // PUT: api/Slots/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -75,6 +99,22 @@ namespace AutoTTU.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Cadastro de um slot
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     POST/api/Slots
+        ///        {
+        ///             "idSlot": 1,
+        ///             "idMoto": 1,
+        ///             "ativoChar": "s",
+        ///             "ocupado": true
+        ///        }
+        ///       
+        /// </remarks>
+        /// 
         // POST: api/Slots
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -90,6 +130,11 @@ namespace AutoTTU.Controllers
             return CreatedAtAction("GetSlot", new { id = slot.IdSlot }, slot);
         }
 
+
+        /// <summary>
+        /// Apagar um slot pelo ID
+        /// </summary>
+        /// <param name="id">ID do slot</param>
         // DELETE: api/Slots/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSlot(int id)

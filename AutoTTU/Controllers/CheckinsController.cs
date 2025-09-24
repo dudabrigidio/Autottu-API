@@ -21,13 +21,19 @@ namespace AutoTTU.Controllers
             _context = context;
         }
 
-        // GET: api/Checkins
+        /// <summary>
+        /// Lista de todos os CheckIn's realizados
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Checkin>>> GetCheckin()
         {
             return await _context.Checkin.ToListAsync();
         }
 
+        /// <summary>
+        /// Busca de CheckIn pelo ID
+        /// </summary>
+        /// <param name="id">ID do CheckIn</param>
         // GET: api/Checkins/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Checkin>> GetCheckin(int id)
@@ -42,7 +48,27 @@ namespace AutoTTU.Controllers
             return checkin;
         }
 
-        // PUT: api/Checkins/5
+        /// <summary>
+        /// Alteração de CheckIn já realizado
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/CheckIn
+        ///        {
+        ///             "idCheckin": 1,
+        ///             "idMoto": 1,
+        ///             "idUsuario": 1,
+        ///             "ativoChar": "s",
+        ///             "violada": true,
+        ///             "observacao": "Moto danificada",
+        ///             "timeStamp": "2025-09-18",
+        ///             "imagensUrl": "string"
+        ///         }
+        ///       
+        /// </remarks>
+        /// 
+        /// <param name="id">ID do CheckIn</param>
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCheckin(int id, Checkin checkin)
@@ -73,7 +99,25 @@ namespace AutoTTU.Controllers
             return NoContent();
         }
 
-        // POST: api/Checkins
+        /// <summary>
+        /// Realização de CheckIn
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     POST/api/CheckIn
+        ///        {
+        ///             "idCheckin": 1,
+        ///             "idMoto": 1,
+        ///             "idUsuario": 1,
+        ///             "ativoChar": "s",
+        ///             "violada": true,
+        ///             "observacao": "Moto danificada",
+        ///             "timeStamp": "2025-09-18",
+        ///             "imagensUrl": "string"
+        ///         }
+        ///       
+        /// </remarks>
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Checkin>> PostCheckin(Checkin checkin)
@@ -84,6 +128,11 @@ namespace AutoTTU.Controllers
             return CreatedAtAction("GetCheckin", new { id = checkin.IdCheckin }, checkin);
         }
 
+
+        /// <summary>
+        /// Apagar CheckIn pelo ID
+        /// </summary>
+        /// <param name="id">ID do CheckIn</param>
         // DELETE: api/Checkins/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCheckin(int id)
