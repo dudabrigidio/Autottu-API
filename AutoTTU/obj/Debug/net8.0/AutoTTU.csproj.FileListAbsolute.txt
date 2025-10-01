@@ -139,7 +139,6 @@ C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets\msb
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AutoTTU.props
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AutoTTU.props
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\AutoTTU.csproj.Up2Date
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\AutoTTU.dll
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\refint\AutoTTU.dll
@@ -265,3 +264,4 @@ C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\zh-Hans\Microsoft.C
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\AutoTTU.sourcelink.json
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\AutoTTU.xml
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

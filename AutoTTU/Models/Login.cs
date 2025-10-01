@@ -2,15 +2,8 @@
 
 namespace AutoTTU.Models
 {
-    public class Usuario
+    public class Login
     {
-        [Key]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string Nome { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Email { get; set; }
@@ -18,10 +11,5 @@ namespace AutoTTU.Models
         [Required]
         [MaxLength(100)]
         public string Senha { get; set; }
-
-        [Required]
-        [MaxLength(20)]
-        public string Telefone { get; set; }
-
     }
 }
