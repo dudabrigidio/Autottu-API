@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using AutoTTU.ML.ServicesML;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,7 +77,18 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 // Banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    // Em ambiente de testes, usa banco InMemory (fake)
+    // Em produção, usa Oracle
+    if (builder.Environment.IsEnvironment("Testing"))
+    {
+        options.UseInMemoryDatabase($"TestDb_{System.Guid.NewGuid()}");
+    }
+    else
+    {
+        options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+});
 
 // Registro dos Repositórios
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();

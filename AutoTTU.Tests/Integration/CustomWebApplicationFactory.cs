@@ -5,49 +5,52 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using AutoTTU.Connection;
 
-namespace AutoTTU.Tests.Integration;
-
-public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+namespace AutoTTU.Tests.Integration
 {
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    public class CustomWebApplicationFactory<TProgram>
+        : WebApplicationFactory<TProgram> where TProgram : class
     {
-        // Configura a API Key para testes antes de configurar serviços
-        builder.ConfigureAppConfiguration((context, config) =>
+        private readonly string _databaseName = $"TestDb_{Guid.NewGuid()}";
+
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            config.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                { "ApiSettings:ApiKey", "TestApiKey123" },
-                { "ConnectionStrings:DefaultConnection", "Data Source=:memory:" }
-            });
-        });
+            builder.UseEnvironment("Testing");
 
-        builder.ConfigureServices(services =>
-        {
-            // Remove o DbContext do Oracle
-            var descriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-
-            if (descriptor != null)
+            // 🔹 Sobrescreve a configuração apenas em memória
+            builder.ConfigureAppConfiguration((context, config) =>
             {
-                services.Remove(descriptor);
-            }
-
-            // Adiciona o DbContext com InMemory para testes
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseInMemoryDatabase("TestDatabase");
+                config.AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    { "ApiSettings:ApiKey", "TestApiKey123" },
+                    // Passa o nome do banco para o Program.cs usar
+                    { "TestDatabaseName", _databaseName }
+                });
             });
 
-            // Garante que o banco de dados seja criado
-            var serviceProvider = services.BuildServiceProvider();
-            using (var scope = serviceProvider.CreateScope())
+            // 🔹 Sobrescreve a configuração do DbContext para usar o mesmo banco
+            builder.ConfigureServices(services =>
             {
-                var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<AppDbContext>();
-                db.Database.EnsureCreated();
-            }
-        });
+                // Remove o DbContext registrado pelo Program.cs
+                var dbContextDescriptor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(AppDbContext));
+                if (dbContextDescriptor != null)
+                {
+                    services.Remove(dbContextDescriptor);
+                }
 
-        builder.UseEnvironment("Testing");
+                var optionsDescriptor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
+                if (optionsDescriptor != null)
+                {
+                    services.Remove(optionsDescriptor);
+                }
+
+                // Registra novamente com o nome fixo do banco
+                services.AddDbContext<AppDbContext>(options =>
+                {
+                    options.UseInMemoryDatabase(_databaseName);
+                });
+            });
+        }
     }
 }

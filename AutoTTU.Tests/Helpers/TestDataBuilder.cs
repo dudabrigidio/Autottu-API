@@ -5,7 +5,7 @@ namespace AutoTTU.Tests.Helpers;
 public class TestDataBuilder
 {
     public static Checkin CreateCheckin(
-        int idCheckin = 0,
+        int idCheckin = 1,
         int idMoto = 1,
         int idUsuario = 1,
         string ativoChar = "S",
@@ -26,7 +26,7 @@ public class TestDataBuilder
     }
 
     public static Motos CreateMoto(
-        int idMoto = 0,
+        int idMoto = 1,
         string modelo = "CG 160",
         string marca = "Honda",
         int ano = 2023,
@@ -47,7 +47,7 @@ public class TestDataBuilder
     }
 
     public static Usuario CreateUsuario(
-        int idUsuario = 0,
+        int idUsuario = 1,
         string nome = "João Silva",
         string email = "joao@test.com",
         string senha = "123456",
@@ -64,7 +64,7 @@ public class TestDataBuilder
     }
 
     public static Slot CreateSlot(
-        int idSlot = 0,
+        int idSlot = 1,
         int idMoto = 1,
         string ativoChar = "S")
     {

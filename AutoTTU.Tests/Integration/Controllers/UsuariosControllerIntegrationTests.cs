@@ -170,6 +170,8 @@ public class UsuariosControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+        // Recarrega o contexto para ver as mudanças
+        await DbContext.Entry(usuario).ReloadAsync();
         var updatedUsuario = await DbContext.Usuario.FindAsync(usuario.IdUsuario);
         updatedUsuario.Should().NotBeNull();
         updatedUsuario!.Nome.Should().Be("João Silva Santos");
@@ -191,6 +193,8 @@ public class UsuariosControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
         var deletedUsuario = await DbContext.Usuario.FindAsync(usuario.IdUsuario);
         deletedUsuario.Should().BeNull();
     }

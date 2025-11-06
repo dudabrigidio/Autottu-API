@@ -44,6 +44,10 @@ public class MotosServiceTests
         ;
 
         _mockRepository
+            .Setup(r => r.PlacaExisteAsync("FDP3467"))
+            .ReturnsAsync(false);
+
+        _mockRepository
             .Setup(r => r.AddAsync(It.IsAny<Motos>()))
             .ReturnsAsync(moto);
 
@@ -171,7 +175,7 @@ public class MotosServiceTests
         }
         ;
 
-         var updatedMoto = new Motos
+        var updatedMoto = new Motos
         {
             IdMoto = 1,
             Modelo = "H3",
@@ -181,7 +185,7 @@ public class MotosServiceTests
             AtivoChar = "s",
             FotoUrl = "www.google.com/123456plcg",
         }
-         ;
+        ;
 
         _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(existingMoto);
         _mockRepository.Setup(r => r.UpdateAsync(It.IsAny<Motos>())).Returns(Task.CompletedTask);

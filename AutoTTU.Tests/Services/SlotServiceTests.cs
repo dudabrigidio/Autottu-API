@@ -14,12 +14,16 @@ public class SlotServiceTests
 {
     private readonly Mock<ISlotRepository> _mockRepository;
     private readonly SlotService _service;
+    private readonly Mock<IMotosRepository> _motosRepository;
+
 
 
     public SlotServiceTests()
     {
         _mockRepository = new Mock<ISlotRepository>();
-        _service = new SlotService(_mockRepository.Object);
+        _motosRepository = new Mock<IMotosRepository>();
+        _service = new SlotService(_mockRepository.Object, _motosRepository.Object);
+
 
     }
 
@@ -41,8 +45,8 @@ public class SlotServiceTests
         _mockRepository
             .Setup(r => r.ExisteMotoAsync(1))
             .ReturnsAsync(false);
-        
-        _mockMotosRepository
+
+        _motosRepository
             .Setup(r => r.MotoExisteAsync(1))
             .ReturnsAsync(true);
 
@@ -65,13 +69,18 @@ public class SlotServiceTests
     [Fact]
     public async Task CreateAsync_DeveLancarExcecao_QuandoAtivoCharInvalido()
     {
+        
         var slot = new Slot
         {
             IdSlot = 1,
             IdMoto = 1,
             AtivoChar = "x",
-        }
-         ;
+        };
+
+        _motosRepository.Setup(r => r.MotoExisteAsync(1)).ReturnsAsync(true);
+        _mockRepository.Setup(r => r.ExisteMotoAsync(1)).ReturnsAsync(false);
+        _mockRepository.Setup(r => r.AddAsync(It.IsAny<Slot>())).ReturnsAsync(slot);
+
 
         // ACT & ASSERT
         var exception = await Assert.ThrowsAsync<ArgumentException>(() =>
@@ -93,7 +102,7 @@ public class SlotServiceTests
             new Slot {IdSlot = 2, IdMoto = 2,AtivoChar = "x" }
         }
         ;
-       
+
         _mockRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(slot);
 
         var result = await _service.GetAllAsync();
@@ -156,18 +165,22 @@ public class SlotServiceTests
         {
             IdSlot = 1,
             IdMoto = 1,
-            AtivoChar = "x",
+            AtivoChar = "s",
         };
 
         var updatedSlot = new Slot
         {
             IdSlot = 1,
             IdMoto = 1,
-            AtivoChar = "x",
+            AtivoChar = "s",
         };
 
         _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(existingSlot);
-        _mockMotosRepository.Setup(r => r.MotoExisteAsync(1)).ReturnsAsync(true);
+        
+        _motosRepository
+            .Setup(r => r.MotoExisteAsync(1))
+            .ReturnsAsync(true);
+
         _mockRepository.Setup(r => r.UpdateAsync(It.IsAny<Slot>())).Returns(Task.CompletedTask);
 
         // ACT
@@ -199,7 +212,7 @@ public class SlotServiceTests
         var exception = await Assert.ThrowsAsync<KeyNotFoundException>(() =>
             _service.UpdateAsync(999, slot));
 
-        exception.Message.Should().Contain("999"); 
+        exception.Message.Should().Contain("999");
     }
 
     #endregion

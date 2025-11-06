@@ -13,14 +13,16 @@ namespace AutoTTU.Tests.Services;
 public class CheckinServiceTests
 {
     private readonly Mock<ICheckinRepository> _mockRepository;
+    private readonly Mock<IMotosRepository> _mockMotosRepository;
+    private readonly Mock<IUsuarioRepository> _mockUsuarioRepository;
     private readonly CheckinService _service;
-
 
     public CheckinServiceTests()
     {
         _mockRepository = new Mock<ICheckinRepository>();
-        _service = new CheckinService(_mockRepository.Object);
-
+        _mockMotosRepository = new Mock<IMotosRepository>();
+        _mockUsuarioRepository = new Mock<IUsuarioRepository>();
+        _service = new CheckinService(_mockRepository.Object, _mockMotosRepository.Object, _mockUsuarioRepository.Object);
     }
 
     #region CreateAsync - Testes de Criação
@@ -40,6 +42,14 @@ public class CheckinServiceTests
             TimeStamp = DateTime.Now,
             ImagensUrl = "img.jpg"
         };
+
+        _mockMotosRepository
+            .Setup(r => r.MotoExisteAsync(1))
+            .ReturnsAsync(true);
+
+        _mockUsuarioRepository
+            .Setup(r => r.ExisteAsync(2))
+            .ReturnsAsync(true);
 
         _mockRepository
             .Setup(r => r.AddAsync(It.IsAny<Checkin>()))
@@ -67,6 +77,14 @@ public class CheckinServiceTests
             TimeStamp = default,
             ImagensUrl = "img.jpg"
         };
+
+        _mockMotosRepository
+            .Setup(r => r.MotoExisteAsync(1))
+            .ReturnsAsync(true);
+
+        _mockUsuarioRepository
+            .Setup(r => r.ExisteAsync(2))
+            .ReturnsAsync(true);
 
         _mockRepository
             .Setup(r => r.AddAsync(It.IsAny<Checkin>()))
@@ -200,6 +218,15 @@ public class CheckinServiceTests
         };
 
         _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(existingCheckin);
+        
+        _mockMotosRepository
+            .Setup(r => r.MotoExisteAsync(2))
+            .ReturnsAsync(true);
+
+        _mockUsuarioRepository
+            .Setup(r => r.ExisteAsync(2))
+            .ReturnsAsync(true);
+
         _mockRepository.Setup(r => r.UpdateAsync(It.IsAny<Checkin>())).Returns(Task.CompletedTask);
 
         // ACT

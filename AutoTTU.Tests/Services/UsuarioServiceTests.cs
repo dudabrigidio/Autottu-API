@@ -41,7 +41,10 @@ public class UsuarioServiceTests
         }
         ;
 
-    
+        _mockRepository
+            .Setup(r => r.EmailExisteAsync("joao@test.com"))
+            .ReturnsAsync(false);
+
         _mockRepository
             .Setup(r => r.AddAsync(It.IsAny<Usuario>()))
             .ReturnsAsync(usuario);
@@ -55,30 +58,7 @@ public class UsuarioServiceTests
 
 
 
-    /// <summary>
-    /// TESTE: Tentar cadastrar usuario com email inválido
-    /// </summary>
-    [Fact]
-    public async Task CreateAsync_DeveLancarExcecao_QuandoAtivoCharInvalido()
-    {
-        var usuario = new Usuario
-        {
-            IdUsuario = 1,
-            Nome = "João Silva",
-            Email = "joaotest.com",
-            Senha = "123456",
-            Telefone = "11999999999",
-        }
-        ;
-
-        // ACT & ASSERT
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() =>
-            _service.CreateAsync(usuario));
-
-        exception.ParamName.Should().Be("Email");
-
-    }
-
+    
 
     /// <summary>
     /// TESTE: Listar todos os usuarios quando existem

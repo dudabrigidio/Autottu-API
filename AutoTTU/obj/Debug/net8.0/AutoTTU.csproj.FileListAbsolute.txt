@@ -294,3 +294,4 @@ C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\runtimes\osx-x64\na
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\runtimes\win-arm64\native\LdaNative.dll
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\runtimes\win-x64\native\LdaNative.dll
 C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\runtimes\win-x86\native\LdaNative.dll
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll

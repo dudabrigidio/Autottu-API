@@ -182,6 +182,8 @@ public class CheckinsControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent); // Status deve ser 204
 
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
         var updatedCheckin = await DbContext.Checkin.FindAsync(checkin.IdCheckin);
         updatedCheckin.Should().NotBeNull();
         updatedCheckin!.Observacao.Should().Be("Observação atualizada");
@@ -215,6 +217,9 @@ public class CheckinsControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent); // Status deve ser 204
 
+        // Recarrega o contexto para ver as mudanças
+        await DbContext.Entry(checkin).ReloadAsync();
+        DbContext.ChangeTracker.Clear();
         var deletedCheckin = await DbContext.Checkin.FindAsync(checkin.IdCheckin);
         deletedCheckin.Should().BeNull(); 
         

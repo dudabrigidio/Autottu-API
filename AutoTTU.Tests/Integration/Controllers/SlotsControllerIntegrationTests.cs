@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using AutoTTU.Tests.Integration;
 using AutoTTU.Tests.Helpers;
 using AutoTTU.Dto;
@@ -25,7 +26,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
     {
         CleanDatabase();
 
-        var response = await Client.GetAsync("/api/v1/Slots");
+        var response = await Client.GetAsync("/api/v1/Slot");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -50,10 +51,10 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
         var slotDto = new SlotsInputDto
         {
             IdMoto = moto.IdMoto,
-            AtivoChar = "S"
+            AtivoChar = "s"
         };
 
-        var response = await Client.PostAsJsonAsync("/api/v1/Slots", slotDto);
+        var response = await Client.PostAsJsonAsync("/api/v1/Slot", slotDto);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -61,7 +62,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
 
         slot.Should().NotBeNull();
         slot!.IdMoto.Should().Be(moto.IdMoto);
-        slot.AtivoChar.Should().Be("S");
+        slot.AtivoChar.Should().Be("s");
     }
 
     /// <summary>
@@ -80,7 +81,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
         DbContext.Slot.Add(slot);
         await DbContext.SaveChangesAsync();
 
-        var response = await Client.GetAsync($"/api/v1/Slots/{slot.IdSlot}");
+        var response = await Client.GetAsync($"/api/v1/Slot/{slot.IdSlot}");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -97,7 +98,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
     {
         CleanDatabase();
 
-        var response = await Client.GetAsync("/api/v1/Slots/999");
+        var response = await Client.GetAsync("/api/v1/Slot/999");
 
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
@@ -116,7 +117,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
             AtivoChar = "X"
         };
 
-        var response = await Client.PostAsJsonAsync("/api/v1/Slots", slotDto);
+        var response = await Client.PostAsJsonAsync("/api/v1/Slot", slotDto);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
@@ -143,7 +144,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
             AtivoChar = "S"
         };
 
-        var response = await Client.PostAsJsonAsync("/api/v1/Slots", slotDto);
+        var response = await Client.PostAsJsonAsync("/api/v1/Slot", slotDto);
 
         response.StatusCode.Should().Be(HttpStatusCode.Conflict);
     }
@@ -157,14 +158,17 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
         CleanDatabase();
 
         var moto1 = TestDataBuilder.CreateMoto(placa: "ABC1234");
-        var moto2 = TestDataBuilder.CreateMoto(placa: "XYZ5678");
         DbContext.Motos.Add(moto1);
-        DbContext.Motos.Add(moto2);
+        
         await DbContext.SaveChangesAsync();
 
         var slot = TestDataBuilder.CreateSlot(idMoto: moto1.IdMoto, ativoChar: "S");
         DbContext.Slot.Add(slot);
         await DbContext.SaveChangesAsync();
+
+        DbContext.ChangeTracker.Clear();
+        var moto2 = TestDataBuilder.CreateMoto(placa: "XYZ5678");
+        DbContext.Motos.Add(moto2);
 
         var updateDto = new SlotsInputDto
         {
@@ -172,11 +176,15 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
             AtivoChar = "N"
         };
 
-        var response = await Client.PutAsJsonAsync($"/api/v1/Slots/{slot.IdSlot}", updateDto);
+        var response = await Client.PutAsJsonAsync($"/api/v1/Slot/{slot.IdSlot}", updateDto);
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
-        var updatedSlot = await DbContext.Slot.FindAsync(slot.IdSlot);
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
+        var updatedSlot = await DbContext.Slot
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.IdSlot == slot.IdSlot);
         updatedSlot.Should().NotBeNull();
         updatedSlot!.IdMoto.Should().Be(moto2.IdMoto);
         updatedSlot.AtivoChar.Should().Be("N");
@@ -198,10 +206,12 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
         DbContext.Slot.Add(slot);
         await DbContext.SaveChangesAsync();
 
-        var response = await Client.DeleteAsync($"/api/v1/Slots/{slot.IdSlot}");
+        var response = await Client.DeleteAsync($"/api/v1/Slot/{slot.IdSlot}");
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
         var deletedSlot = await DbContext.Slot.FindAsync(slot.IdSlot);
         deletedSlot.Should().BeNull();
     }
@@ -214,7 +224,7 @@ public class SlotsControllerIntegrationTests : IntegrationTestBase
     {
         CleanDatabase();
 
-        var response = await Client.DeleteAsync("/api/v1/Slots/999");
+        var response = await Client.DeleteAsync("/api/v1/Slot/999");
 
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }

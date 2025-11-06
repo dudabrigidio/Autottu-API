@@ -178,6 +178,8 @@ public class MotosControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
         var updatedMoto = await DbContext.Motos.FindAsync(moto.IdMoto);
         updatedMoto.Should().NotBeNull();
         updatedMoto!.Modelo.Should().Be("CB 600");
@@ -199,6 +201,8 @@ public class MotosControllerIntegrationTests : IntegrationTestBase
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+        // Limpa o contexto para garantir que a consulta venha do banco
+        DbContext.ChangeTracker.Clear();
         var deletedMoto = await DbContext.Motos.FindAsync(moto.IdMoto);
         deletedMoto.Should().BeNull();
     }
