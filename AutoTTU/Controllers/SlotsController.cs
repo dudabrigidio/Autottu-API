@@ -1,102 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoTTU.Connection;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoTTU.Models;
+using AutoTTU.Service;
+using AutoTTU.Dto;
 
 namespace AutoTTU.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller responsável por gerenciar os slots de estacionamento
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class SlotsController : ControllerBase
+    public class SlotController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ISlotService _service;
 
-        public SlotsController(AppDbContext context)
+
+        public SlotController(ISlotService service)
         {
-            _context = context;
+            _service = service;
         }
 
         /// <summary>
-        /// Lista de todos os slots (espaços de estacionamento) cadastrados
+        /// Lista de todos os slots cadastrados
         /// </summary>
-        // GET: api/Slots
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Slot>>> GetSlot()
         {
-            return await _context.Slot.ToListAsync();
+            var slots = await _service.GetAllAsync();
+            return Ok(slots);
         }
 
         /// <summary>
         /// Busca de um slot pelo ID
         /// </summary>
         /// <param name="id">ID do slot</param>
-        // GET: api/Slots/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Slot>> GetSlot(int id)
         {
-            var slot = await _context.Slot.FindAsync(id);
+            var slot = await _service.GetByIdAsync(id);
 
             if (slot == null)
             {
                 return NotFound();
             }
 
-            return slot;
-        }
-
-        /// <summary>
-        /// Alteração de um slot já cadastrado
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição:
-        /// 
-        ///     PUT/api/Slots
-        ///        {
-        ///             "idSlot": 1,
-        ///             "idMoto": 1,
-        ///             "ativoChar": "s",
-        ///             "ocupado": true
-        ///        }
-        ///       
-        /// </remarks>
-        /// 
-        /// <param name="id">ID do usuário</param>
-        // PUT: api/Slots/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSlot(int id, Slot slot)
-        {
-            
-            
-            if (id != slot.IdSlot)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(slot).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SlotExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(slot);
         }
 
         /// <summary>
@@ -107,57 +56,103 @@ namespace AutoTTU.Controllers
         /// 
         ///     POST/api/Slots
         ///        {
-        ///             "idSlot": 1,
         ///             "idMoto": 1,
         ///             "ativoChar": "s",
-        ///             "ocupado": true
+        ///        }     
+        /// </remarks>
+
+        [HttpPost]
+
+        public async Task<ActionResult<Slot>> PostSlot(SlotsInputDto slotDto)
+        {
+            try
+            {
+                var slot = new Slot
+                {
+                    IdMoto = slotDto.IdMoto,
+                    AtivoChar = slotDto.AtivoChar
+                };
+
+                var novoSlot = await _service.CreateAsync(slot);
+                return CreatedAtAction("GetSlot", new { id = novoSlot.IdSlot }, novoSlot);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Alteração de um slot já cadastrado
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/Slots
+        ///        {
+        ///             "idMoto": 1,
+        ///             "ativoChar": "s",
         ///        }
         ///       
         /// </remarks>
         /// 
-        // POST: api/Slots
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Slot>> PostSlot(Slot slot)
+        /// <param name="id">ID do usuário</param>
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutSlot(int id, SlotsInputDto slotDto)
         {
+            var slot = new Slot
+            {
+                IdMoto = slotDto.IdMoto,
+                AtivoChar = slotDto.AtivoChar
+            };
 
-            _context.Slot.Add(slot);
-            await _context.SaveChangesAsync();
-
-           
-
-
-            return CreatedAtAction("GetSlot", new { id = slot.IdSlot }, slot);
-        }
-
-
-        /// <summary>
-        /// Apagar um slot pelo ID
-        /// </summary>
-        /// <param name="id">ID do slot</param>
-        // DELETE: api/Slots/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSlot(int id)
-        {
-            var slot = await _context.Slot.FindAsync(id);
-            if (slot == null)
+            try
+            {
+                await _service.UpdateAsync(id, slot);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
-            _context.Slot.Remove(slot);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
 
-        private bool SlotExists(int id)
+        /// <summary>
+        /// Apagar slot pelo ID
+        /// </summary>
+        /// <param name="id">ID do Slot</param>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSlot(int id)
         {
-            return _context.Slot.Any(e => e.IdSlot == id);
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
 
-     
-       
+
     }
 }

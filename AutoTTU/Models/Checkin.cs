@@ -6,6 +6,8 @@ namespace AutoTTU.Models
     public class Checkin
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int IdCheckin { get; set; }
 
         [ForeignKey("Motos")]
@@ -19,10 +21,11 @@ namespace AutoTTU.Models
         public string AtivoChar { get; set; }  // Armazena "S" ou "N" no banco
 
         [NotMapped]
+
         public bool Violada
         {
-            get => AtivoChar == "S";
-            set => AtivoChar = value ? "S" : "N";
+            get => AtivoChar.ToLower() == "s";
+            set => AtivoChar = value ? "s" : "n";
         }
 
         [Required]

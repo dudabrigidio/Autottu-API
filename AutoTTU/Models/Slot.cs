@@ -6,6 +6,7 @@ namespace AutoTTU.Models
     public class Slot
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdSlot { get; set; }
 
         [ForeignKey("Motos")]
@@ -18,8 +19,8 @@ namespace AutoTTU.Models
         [NotMapped]
         public bool Ocupado
         {
-            get => AtivoChar == "S";
-            set => AtivoChar = value ? "S" : "N";
+            get => AtivoChar.ToLower() == "s";
+            set => AtivoChar = value ? "s" : "n";
         }
 
 

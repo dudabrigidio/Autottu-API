@@ -69,7 +69,8 @@ namespace AutoTTU.Migrations
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     Nome = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Telefone = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false)
+                    Senha = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
+                    Telefone = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {

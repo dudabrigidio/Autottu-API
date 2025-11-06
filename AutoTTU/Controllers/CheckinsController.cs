@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoTTU.Connection;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoTTU.Models;
+using AutoTTU.Service;
+using AutoTTU.Dto;
 
 namespace AutoTTU.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller responsável por gerenciar os check-ins de motos
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CheckinsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICheckinService _service;
 
-        public CheckinsController(AppDbContext context)
+
+        public CheckinsController(ICheckinService service)
         {
-            _context = context;
+            _service = service;
         }
 
         /// <summary>
@@ -27,25 +27,73 @@ namespace AutoTTU.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Checkin>>> GetCheckin()
         {
-            return await _context.Checkin.ToListAsync();
+            var checkins = await _service.GetAllAsync();
+            return Ok(checkins);
         }
 
         /// <summary>
         /// Busca de CheckIn pelo ID
         /// </summary>
         /// <param name="id">ID do CheckIn</param>
-        // GET: api/Checkins/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Checkin>> GetCheckin(int id)
         {
-            var checkin = await _context.Checkin.FindAsync(id);
+            var checkin = await _service.GetByIdAsync(id);
 
             if (checkin == null)
             {
                 return NotFound();
             }
 
-            return checkin;
+            return Ok(checkin);
+        }
+
+        
+
+        /// <summary>
+        /// Realização de CheckIn
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     POST/api/CheckIn
+        ///        {
+        ///             "idMoto": 1,
+        ///             "idUsuario": 1,
+        ///             "ativoChar" (se foi violada = s, se não foi violada = n): "s",
+        ///             "observacao": "Moto danificada",
+        ///             "timeStamp": "2025-09-18",
+        ///             "imagensUrl": "string"
+        ///         }
+        ///       
+        /// </remarks>
+        [HttpPost]
+        public async Task<ActionResult<Checkin>> PostCheckin(CheckinInputDto checkinDto)
+        {
+            try
+            {
+                // Converte DTO para modelo
+                var checkin = new Checkin
+                {
+                    IdMoto = checkinDto.IdMoto,
+                    IdUsuario = checkinDto.IdUsuario,
+                    AtivoChar = checkinDto.AtivoChar,
+                    Observacao = checkinDto.Observacao,
+                    TimeStamp = checkinDto.TimeStamp ?? DateTime.Now,
+                    ImagensUrl = checkinDto.ImagensUrl
+                };
+
+                var novoCheckin = await _service.CreateAsync(checkin);
+                return CreatedAtAction("GetCheckin", new { id = novoCheckin.IdCheckin }, novoCheckin);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         /// <summary>
@@ -56,76 +104,46 @@ namespace AutoTTU.Controllers
         /// 
         ///     PUT/api/CheckIn
         ///        {
-        ///             "idCheckin": 1,
         ///             "idMoto": 1,
         ///             "idUsuario": 1,
-        ///             "ativoChar": "s",
-        ///             "violada": true,
+        ///             "ativoChar" (se foi violada = s, se não foi violada = n): "s",
         ///             "observacao": "Moto danificada",
         ///             "timeStamp": "2025-09-18",
         ///             "imagensUrl": "string"
         ///         }
         ///       
         /// </remarks>
-        /// 
         /// <param name="id">ID do CheckIn</param>
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCheckin(int id, Checkin checkin)
+        public async Task<IActionResult> PutCheckin(int id, CheckinInputDto checkinDto)
         {
-            if (id != checkin.IdCheckin)
+            var checkin = new Checkin
             {
-                return BadRequest();
-            }
-
-            _context.Entry(checkin).State = EntityState.Modified;
+                IdMoto = checkinDto.IdMoto,
+                IdUsuario = checkinDto.IdUsuario,
+                AtivoChar = checkinDto.AtivoChar,
+                Observacao = checkinDto.Observacao,
+                TimeStamp = checkinDto.TimeStamp ?? DateTime.Now,
+                ImagensUrl = checkinDto.ImagensUrl
+            };
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.UpdateAsync(id, checkin);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (KeyNotFoundException)
             {
-                if (!CheckinExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
-
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Realização de CheckIn
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição:
-        /// 
-        ///     POST/api/CheckIn
-        ///        {
-        ///             "idCheckin": 1,
-        ///             "idMoto": 1,
-        ///             "idUsuario": 1,
-        ///             "ativoChar": "s",
-        ///             "violada": true,
-        ///             "observacao": "Moto danificada",
-        ///             "timeStamp": "2025-09-18",
-        ///             "imagensUrl": "string"
-        ///         }
-        ///       
-        /// </remarks>
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Checkin>> PostCheckin(Checkin checkin)
-        {
-            _context.Checkin.Add(checkin);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCheckin", new { id = checkin.IdCheckin }, checkin);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
 
 
@@ -133,25 +151,22 @@ namespace AutoTTU.Controllers
         /// Apagar CheckIn pelo ID
         /// </summary>
         /// <param name="id">ID do CheckIn</param>
-        // DELETE: api/Checkins/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCheckin(int id)
         {
-            var checkin = await _context.Checkin.FindAsync(id);
-            if (checkin == null)
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
-            _context.Checkin.Remove(checkin);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CheckinExists(int id)
-        {
-            return _context.Checkin.Any(e => e.IdCheckin == id);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

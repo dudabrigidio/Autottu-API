@@ -12,7 +12,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace AutoTTU.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250509134329_InitialCreate")]
+    [Migration("20251103164112_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -141,10 +141,15 @@ namespace AutoTTU.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)");
 
-                    b.Property<string>("Telefone")
+                    b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("NVARCHAR2(20)");
 
                     b.HasKey("IdUsuario");
 

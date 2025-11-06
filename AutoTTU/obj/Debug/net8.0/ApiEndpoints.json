@@ -1,8 +1,40 @@
 [
   {
+    "ContainingType": "AutoTTU.Controllers.HealthController",
+    "Method": "Get",
+    "RelativePath": "api/Health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "api-version",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "x-api-version",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 503
+      }
+    ]
+  },
+  {
     "ContainingType": "AutoTTU.Controllers.CheckinsController",
     "Method": "GetCheckin",
-    "RelativePath": "api/Checkins",
+    "RelativePath": "api/v1/Checkins",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -22,14 +54,14 @@
   {
     "ContainingType": "AutoTTU.Controllers.CheckinsController",
     "Method": "PostCheckin",
-    "RelativePath": "api/Checkins",
+    "RelativePath": "api/v1/Checkins",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "checkin",
-        "Type": "AutoTTU.Models.Checkin",
+        "Name": "checkinDto",
+        "Type": "AutoTTU.Dto.CheckinInputDto",
         "IsRequired": true
       }
     ],
@@ -48,7 +80,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.CheckinsController",
     "Method": "GetCheckin",
-    "RelativePath": "api/Checkins/{id}",
+    "RelativePath": "api/v1/Checkins/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -74,7 +106,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.CheckinsController",
     "Method": "PutCheckin",
-    "RelativePath": "api/Checkins/{id}",
+    "RelativePath": "api/v1/Checkins/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -85,8 +117,8 @@
         "IsRequired": true
       },
       {
-        "Name": "checkin",
-        "Type": "AutoTTU.Models.Checkin",
+        "Name": "checkinDto",
+        "Type": "AutoTTU.Dto.CheckinInputDto",
         "IsRequired": true
       }
     ],
@@ -95,7 +127,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.CheckinsController",
     "Method": "DeleteCheckin",
-    "RelativePath": "api/Checkins/{id}",
+    "RelativePath": "api/v1/Checkins/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -109,9 +141,35 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AutoTTU.ML.ControllersML.IAController",
+    "Method": "PreverDanos",
+    "RelativePath": "api/v1/IA/prever-danos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTTU.ML.ControllersML.IAController",
+    "Method": "PreverRisco",
+    "RelativePath": "api/v1/IA/prever-risco",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "observacao",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AutoTTU.Controllers.MotosController",
     "Method": "GetMotos",
-    "RelativePath": "api/Motos",
+    "RelativePath": "api/v1/Motos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -130,15 +188,15 @@
   },
   {
     "ContainingType": "AutoTTU.Controllers.MotosController",
-    "Method": "PostMotos",
-    "RelativePath": "api/Motos",
+    "Method": "PostMoto",
+    "RelativePath": "api/v1/Motos",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "motos",
-        "Type": "AutoTTU.Models.Motos",
+        "Name": "motoDto",
+        "Type": "AutoTTU.Dto.MotoInputDto",
         "IsRequired": true
       }
     ],
@@ -156,8 +214,8 @@
   },
   {
     "ContainingType": "AutoTTU.Controllers.MotosController",
-    "Method": "GetMotos",
-    "RelativePath": "api/Motos/{id}",
+    "Method": "GetMoto",
+    "RelativePath": "api/v1/Motos/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -182,8 +240,8 @@
   },
   {
     "ContainingType": "AutoTTU.Controllers.MotosController",
-    "Method": "PutMotos",
-    "RelativePath": "api/Motos/{id}",
+    "Method": "PutMoto",
+    "RelativePath": "api/v1/Motos/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -194,8 +252,8 @@
         "IsRequired": true
       },
       {
-        "Name": "motos",
-        "Type": "AutoTTU.Models.Motos",
+        "Name": "motoDto",
+        "Type": "AutoTTU.Dto.MotoInputDto",
         "IsRequired": true
       }
     ],
@@ -203,8 +261,8 @@
   },
   {
     "ContainingType": "AutoTTU.Controllers.MotosController",
-    "Method": "DeleteMotos",
-    "RelativePath": "api/Motos/{id}",
+    "Method": "DeleteMoto",
+    "RelativePath": "api/v1/Motos/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -218,9 +276,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AutoTTU.Controllers.SlotsController",
+    "ContainingType": "AutoTTU.Controllers.SlotController",
     "Method": "GetSlot",
-    "RelativePath": "api/Slots",
+    "RelativePath": "api/v1/Slot",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -238,16 +296,16 @@
     ]
   },
   {
-    "ContainingType": "AutoTTU.Controllers.SlotsController",
+    "ContainingType": "AutoTTU.Controllers.SlotController",
     "Method": "PostSlot",
-    "RelativePath": "api/Slots",
+    "RelativePath": "api/v1/Slot",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "slot",
-        "Type": "AutoTTU.Models.Slot",
+        "Name": "slotDto",
+        "Type": "AutoTTU.Dto.SlotsInputDto",
         "IsRequired": true
       }
     ],
@@ -264,9 +322,9 @@
     ]
   },
   {
-    "ContainingType": "AutoTTU.Controllers.SlotsController",
+    "ContainingType": "AutoTTU.Controllers.SlotController",
     "Method": "GetSlot",
-    "RelativePath": "api/Slots/{id}",
+    "RelativePath": "api/v1/Slot/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -290,9 +348,9 @@
     ]
   },
   {
-    "ContainingType": "AutoTTU.Controllers.SlotsController",
+    "ContainingType": "AutoTTU.Controllers.SlotController",
     "Method": "PutSlot",
-    "RelativePath": "api/Slots/{id}",
+    "RelativePath": "api/v1/Slot/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -303,17 +361,17 @@
         "IsRequired": true
       },
       {
-        "Name": "slot",
-        "Type": "AutoTTU.Models.Slot",
+        "Name": "slotDto",
+        "Type": "AutoTTU.Dto.SlotsInputDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AutoTTU.Controllers.SlotsController",
+    "ContainingType": "AutoTTU.Controllers.SlotController",
     "Method": "DeleteSlot",
-    "RelativePath": "api/Slots/{id}",
+    "RelativePath": "api/v1/Slot/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -329,7 +387,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
     "Method": "GetUsuario",
-    "RelativePath": "api/Usuarios",
+    "RelativePath": "api/v1/Usuarios",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -349,14 +407,14 @@
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
     "Method": "PostUsuario",
-    "RelativePath": "api/Usuarios",
+    "RelativePath": "api/v1/Usuarios",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "AutoTTU.Models.Usuario",
+        "Name": "usuarioDto",
+        "Type": "AutoTTU.Dto.UsuarioInputDto",
         "IsRequired": true
       }
     ],
@@ -375,7 +433,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
     "Method": "GetUsuario",
-    "RelativePath": "api/Usuarios/{id}",
+    "RelativePath": "api/v1/Usuarios/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -401,7 +459,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
     "Method": "PutUsuario",
-    "RelativePath": "api/Usuarios/{id}",
+    "RelativePath": "api/v1/Usuarios/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -412,8 +470,8 @@
         "IsRequired": true
       },
       {
-        "Name": "usuario",
-        "Type": "AutoTTU.Models.Usuario",
+        "Name": "usuarioDto",
+        "Type": "AutoTTU.Dto.UsuarioInputDto",
         "IsRequired": true
       }
     ],
@@ -422,7 +480,7 @@
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
     "Method": "DeleteUsuario",
-    "RelativePath": "api/Usuarios/{id}",
+    "RelativePath": "api/v1/Usuarios/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -437,29 +495,19 @@
   },
   {
     "ContainingType": "AutoTTU.Controllers.UsuariosController",
-    "Method": "PostUsuario",
-    "RelativePath": "api/Usuarios/Login",
+    "Method": "Login",
+    "RelativePath": "api/v1/Usuarios/Login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "login",
-        "Type": "AutoTTU.Models.Login",
+        "Name": "loginDto",
+        "Type": "AutoTTU.Dto.LoginDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "AutoTTU.Models.Usuario",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "AutoTTU.Controllers.WeatherForecastController",
@@ -468,7 +516,18 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "api-version",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "x-api-version",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[AutoTTU.WeatherForecast, AutoTTU, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",

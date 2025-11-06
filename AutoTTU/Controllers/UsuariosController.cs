@@ -1,167 +1,161 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoTTU.Connection;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoTTU.Models;
+using AutoTTU.Service;
+using AutoTTU.Dto;
 
 namespace AutoTTU.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller responsável por gerenciar os usuários do sistema e autenticação
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IUsuarioService _service;
 
-        public UsuariosController(AppDbContext context)
+        
+        public UsuariosController(IUsuarioService service)
         {
-            _context = context;
+            _service = service;
         }
 
         /// <summary>
         /// Lista de todos os usuários cadastrados
         /// </summary>
-        // GET: api/Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
         {
-            return await _context.Usuario.ToListAsync();
+            var usuarios = await _service.GetAllAsync();
+            return Ok(usuarios);
         }
 
         /// <summary>
         /// Busca de um usuário pelo ID
         /// </summary>
         /// <param name="id">ID do usuário</param>
-        // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
+            var usuario = await _service.GetByIdAsync(id);
 
             if (usuario == null)
             {
                 return NotFound();
             }
 
-            return usuario;
+            return Ok(usuario);
+        }
+
+        /// <summary>
+        /// Cadastro de um usuário
+        /// </summary>
+        [HttpPost]
+        public async Task<ActionResult<Usuario>> PostUsuario(UsuarioInputDto usuarioDto)
+        {
+            try
+            {
+                // Converte DTO para modelo, garantindo que o ID seja 0 (banco vai gerar automaticamente)
+                var usuario = new Usuario
+                {
+                    
+                    Nome = usuarioDto.Nome,
+                    Email = usuarioDto.Email,
+                    Senha = usuarioDto.Senha,
+                    Telefone = usuarioDto.Telefone
+                };
+
+                var novoUsuario = await _service.CreateAsync(usuario);
+                return CreatedAtAction("GetUsuario", new { id = novoUsuario.IdUsuario }, novoUsuario);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         /// <summary>
         /// Alteração de um usuário já cadastrado
         /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição:
-        /// 
-        ///     PUT/api/Usuarios
-        ///        {
-        ///            "idUsuario": 1,
-        ///            "nome": "Gabriel Silva",
-        ///            "email": "gabriel@silva.com",
-        ///            "senha": "12345",
-        ///            "telefone": "11987654321"
-        ///         }
-        ///       
-        /// </remarks>
-        /// 
         /// <param name="id">ID do usuário</param>
-        // PUT: api/Usuarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        public async Task<IActionResult> PutUsuario(int id, UsuarioInputDto usuarioDto)
         {
-            if (id != usuario.IdUsuario)
+            var usuario = new Usuario
             {
-                return BadRequest();
-            }
-
-            _context.Entry(usuario).State = EntityState.Modified;
+                IdUsuario = id,
+                Nome = usuarioDto.Nome,
+                Email = usuarioDto.Email,
+                Senha = usuarioDto.Senha,
+                Telefone = usuarioDto.Telefone
+            };
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.UpdateAsync(id, usuario);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (KeyNotFoundException)
             {
-                if (!UsuarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
-
-            return NoContent();
-        }
-        /// <summary>
-        /// Cadastro um usuário
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição:
-        /// 
-        ///     POST/api/Usuarios
-        ///        {
-        ///            "idUsuario": 1,
-        ///            "nome": "Gabriel Silva",
-        ///            "email": "gabriel@silva.com",
-        ///            "senha": "12345",
-        ///            "telefone": "11987654321"
-        ///         }
-        ///       
-        /// </remarks>
-        /// 
-        /// <param name="id">ID do usuário</param>
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
-        {
-            _context.Usuario.Add(usuario);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
 
         /// <summary>
         /// Apagar um usuário pelo ID
         /// </summary>
         /// <param name="id">ID do usuário</param>
-        // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario == null)
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
-            _context.Usuario.Remove(usuario);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-
+        /// <summary>
+        /// Realiza login do usuário
+        /// </summary>
         [HttpPost("Login")]
-        public async Task<ActionResult<Usuario>> PostUsuario(Login login)
+        public async Task<ActionResult> Login(LoginDto loginDto)
         {
-            var user = _context.Usuario
-                .FirstOrDefault(u => u.Email == login.Email && u.Senha == login.Senha);
-            if (user == null)
-                return Unauthorized("Email ou senha inválidos");
+            try
+            {
+                var usuario = await _service.LoginAsync(loginDto);
 
-            var idToken = Guid.NewGuid().ToString();
-            return Ok(new { message = "Login bem-sucedido", idToken = idToken });
-        }
+                if (usuario == null)
+                    return Unauthorized(new { message = "Email ou senha inválidos" });
 
-
-        private bool UsuarioExists(int id)
-        {
-            return _context.Usuario.Any(e => e.IdUsuario == id);
+                var idToken = Guid.NewGuid().ToString();
+                return Ok(new { message = "Login bem-sucedido", idToken = idToken });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

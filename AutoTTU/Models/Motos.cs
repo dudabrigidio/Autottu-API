@@ -6,6 +6,8 @@ namespace AutoTTU.Models
     public class Motos
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int IdMoto { get; set; }
 
         [Required]
@@ -29,8 +31,8 @@ namespace AutoTTU.Models
         [NotMapped]
         public bool Status
         {
-            get => AtivoChar == "S";
-            set => AtivoChar = value ? "S" : "N";
+            get => AtivoChar.ToLower() == "s";
+            set => AtivoChar = value ? "s" : "n";
         }
 
         [Required]

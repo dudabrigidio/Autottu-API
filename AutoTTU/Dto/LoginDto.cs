@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AutoTTU.Models
+namespace AutoTTU.Dto
 {
-    public class Login
+    public class LoginDto
     {
         [Required]
         [MaxLength(100)]

@@ -4,6 +4,11 @@
         <name>AutoTTU</name>
     </assembly>
     <members>
+        <member name="T:AutoTTU.Controllers.CheckinsController">
+            <summary>
+            Controller responsável por gerenciar os check-ins de motos
+            </summary>
+        </member>
         <member name="M:AutoTTU.Controllers.CheckinsController.GetCheckin">
             <summary>
             Lista de todos os CheckIn's realizados
@@ -15,30 +20,7 @@
             </summary>
             <param name="id">ID do CheckIn</param>
         </member>
-        <member name="M:AutoTTU.Controllers.CheckinsController.PutCheckin(System.Int32,AutoTTU.Models.Checkin)">
-            <summary>
-            Alteração de CheckIn já realizado
-            </summary>
-            <remarks>
-            Exemplo de requisição:
-            
-                PUT/api/CheckIn
-                   {
-                        "idCheckin": 1,
-                        "idMoto": 1,
-                        "idUsuario": 1,
-                        "ativoChar": "s",
-                        "violada": true,
-                        "observacao": "Moto danificada",
-                        "timeStamp": "2025-09-18",
-                        "imagensUrl": "string"
-                    }
-                  
-            </remarks>
-            
-            <param name="id">ID do CheckIn</param>
-        </member>
-        <member name="M:AutoTTU.Controllers.CheckinsController.PostCheckin(AutoTTU.Models.Checkin)">
+        <member name="M:AutoTTU.Controllers.CheckinsController.PostCheckin(AutoTTU.Dto.CheckinInputDto)">
             <summary>
             Realização de CheckIn
             </summary>
@@ -47,11 +29,9 @@
             
                 POST/api/CheckIn
                    {
-                        "idCheckin": 1,
                         "idMoto": 1,
                         "idUsuario": 1,
-                        "ativoChar": "s",
-                        "violada": true,
+                        "ativoChar" (se foi violada = s, se não foi violada = n): "s",
                         "observacao": "Moto danificada",
                         "timeStamp": "2025-09-18",
                         "imagensUrl": "string"
@@ -59,104 +39,123 @@
                   
             </remarks>
         </member>
+        <member name="M:AutoTTU.Controllers.CheckinsController.PutCheckin(System.Int32,AutoTTU.Dto.CheckinInputDto)">
+            <summary>
+            Alteração de CheckIn já realizado
+            </summary>
+            <remarks>
+            Exemplo de requisição:
+            
+                PUT/api/CheckIn
+                   {
+                        "idMoto": 1,
+                        "idUsuario": 1,
+                        "ativoChar" (se foi violada = s, se não foi violada = n): "s",
+                        "observacao": "Moto danificada",
+                        "timeStamp": "2025-09-18",
+                        "imagensUrl": "string"
+                    }
+                  
+            </remarks>
+            <param name="id">ID do CheckIn</param>
+        </member>
         <member name="M:AutoTTU.Controllers.CheckinsController.DeleteCheckin(System.Int32)">
             <summary>
             Apagar CheckIn pelo ID
             </summary>
             <param name="id">ID do CheckIn</param>
         </member>
+        <member name="T:AutoTTU.Controllers.HealthController">
+            <summary>
+            Controller responsável por verificar o status de saúde da aplicação e suas dependências
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Controllers.HealthController.Get">
+            <summary>
+            Verifica o status de saúde da aplicação e suas dependências
+            </summary>
+            <returns>Status de saúde da aplicação com detalhes de todos os checks</returns>
+            <response code="200">Aplicação está saudável</response>
+            <response code="503">Aplicação está com problemas ou dependências indisponíveis</response>
+        </member>
+        <member name="T:AutoTTU.Controllers.MotosController">
+            <summary>
+            Controller responsável por gerenciar as motos cadastradas no sistema
+            </summary>
+        </member>
         <member name="M:AutoTTU.Controllers.MotosController.GetMotos">
             <summary>
             Lista de todas as motos cadastradas
             </summary>
         </member>
-        <member name="M:AutoTTU.Controllers.MotosController.GetMotos(System.Int32)">
+        <member name="M:AutoTTU.Controllers.MotosController.GetMoto(System.Int32)">
             <summary>
             Busca de uma moto pelo ID
             </summary>
             <param name="id">ID da moto</param>
         </member>
-        <member name="M:AutoTTU.Controllers.MotosController.PutMotos(System.Int32,AutoTTU.Models.Motos)">
-            <summary>
-            Alteração de uma moto já cadastrada
-            </summary>
-            <remarks>
-            Exemplo de requisição:
-            
-                PUT/api/Motos
-                   {
-                     "idMoto": 1,
-                     "modelo": "H2",
-                     "marca": "Honda",
-                     "ano": 2020,
-                     "placa": "FDP3467",
-                     "ativoChar": "s",
-                     "status": true,
-                     "fotoUrl": "123456plcg"
-                   }
-                  
-            </remarks>
-            
-            <param name="id">ID da moto</param>
-        </member>
-        <member name="M:AutoTTU.Controllers.MotosController.PostMotos(AutoTTU.Models.Motos)">
+        <member name="M:AutoTTU.Controllers.MotosController.PostMoto(AutoTTU.Dto.MotoInputDto)">
             <summary>
             Cadastro de uma moto
             </summary>
-            <remarks>
+            /// <remarks>
             Exemplo de requisição:
             
                 POST/api/Motos
                    {
-                     "idMoto": 1,
                      "modelo": "H2",
                      "marca": "Honda",
                      "ano": 2020,
                      "placa": "FDP3467",
                      "ativoChar": "s",
-                     "status": true,
-                     "fotoUrl": "123456plcg"
+                     "fotoUrl": "www.google.com/123456plcg"
                    }
                   
             </remarks>
         </member>
-        <member name="M:AutoTTU.Controllers.MotosController.DeleteMotos(System.Int32)">
+        <member name="M:AutoTTU.Controllers.MotosController.PutMoto(System.Int32,AutoTTU.Dto.MotoInputDto)">
+            <summary>
+            Alteração de uma moto já cadastrada
+            </summary>
+            /// <remarks>
+            Exemplo de requisição:
+            
+                PUT/api/Motos
+                   {
+                     "modelo": "H2",
+                     "marca": "Honda",
+                     "ano": 2020,
+                     "placa": "FDP3467",
+                     "ativoChar": "s",
+                     "fotoUrl": "123456plcg"
+                   }
+                  
+            </remarks>
+            <param name="id">ID da moto</param>
+        </member>
+        <member name="M:AutoTTU.Controllers.MotosController.DeleteMoto(System.Int32)">
             <summary>
             Apagar uma moto pelo ID
             </summary>
             <param name="id">ID da moto</param>
         </member>
-        <member name="M:AutoTTU.Controllers.SlotsController.GetSlot">
+        <member name="T:AutoTTU.Controllers.SlotController">
             <summary>
-            Lista de todos os slots (espaços de estacionamento) cadastrados
+            Controller responsável por gerenciar os slots de estacionamento
             </summary>
         </member>
-        <member name="M:AutoTTU.Controllers.SlotsController.GetSlot(System.Int32)">
+        <member name="M:AutoTTU.Controllers.SlotController.GetSlot">
+            <summary>
+            Lista de todos os slots cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Controllers.SlotController.GetSlot(System.Int32)">
             <summary>
             Busca de um slot pelo ID
             </summary>
             <param name="id">ID do slot</param>
         </member>
-        <member name="M:AutoTTU.Controllers.SlotsController.PutSlot(System.Int32,AutoTTU.Models.Slot)">
-            <summary>
-            Alteração de um slot já cadastrado
-            </summary>
-            <remarks>
-            Exemplo de requisição:
-            
-                PUT/api/Slots
-                   {
-                        "idSlot": 1,
-                        "idMoto": 1,
-                        "ativoChar": "s",
-                        "ocupado": true
-                   }
-                  
-            </remarks>
-            
-            <param name="id">ID do usuário</param>
-        </member>
-        <member name="M:AutoTTU.Controllers.SlotsController.PostSlot(AutoTTU.Models.Slot)">
+        <member name="M:AutoTTU.Controllers.SlotController.PostSlot(AutoTTU.Dto.SlotsInputDto)">
             <summary>
             Cadastro de um slot
             </summary>
@@ -165,20 +164,38 @@
             
                 POST/api/Slots
                    {
-                        "idSlot": 1,
                         "idMoto": 1,
                         "ativoChar": "s",
-                        "ocupado": true
+                   }     
+            </remarks>
+        </member>
+        <member name="M:AutoTTU.Controllers.SlotController.PutSlot(System.Int32,AutoTTU.Dto.SlotsInputDto)">
+            <summary>
+            Alteração de um slot já cadastrado
+            </summary>
+            <remarks>
+            Exemplo de requisição:
+            
+                PUT/api/Slots
+                   {
+                        "idMoto": 1,
+                        "ativoChar": "s",
                    }
                   
             </remarks>
             
+            <param name="id">ID do usuário</param>
         </member>
-        <member name="M:AutoTTU.Controllers.SlotsController.DeleteSlot(System.Int32)">
+        <member name="M:AutoTTU.Controllers.SlotController.DeleteSlot(System.Int32)">
             <summary>
-            Apagar um slot pelo ID
+            Apagar slot pelo ID
             </summary>
-            <param name="id">ID do slot</param>
+            <param name="id">ID do Slot</param>
+        </member>
+        <member name="T:AutoTTU.Controllers.UsuariosController">
+            <summary>
+            Controller responsável por gerenciar os usuários do sistema e autenticação
+            </summary>
         </member>
         <member name="M:AutoTTU.Controllers.UsuariosController.GetUsuario">
             <summary>
@@ -191,44 +208,15 @@
             </summary>
             <param name="id">ID do usuário</param>
         </member>
-        <member name="M:AutoTTU.Controllers.UsuariosController.PutUsuario(System.Int32,AutoTTU.Models.Usuario)">
+        <member name="M:AutoTTU.Controllers.UsuariosController.PostUsuario(AutoTTU.Dto.UsuarioInputDto)">
+            <summary>
+            Cadastro de um usuário
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Controllers.UsuariosController.PutUsuario(System.Int32,AutoTTU.Dto.UsuarioInputDto)">
             <summary>
             Alteração de um usuário já cadastrado
             </summary>
-            <remarks>
-            Exemplo de requisição:
-            
-                PUT/api/Usuarios
-                   {
-                       "idUsuario": 1,
-                       "nome": "Gabriel Silva",
-                       "email": "gabriel@silva.com",
-                       "senha": "12345",
-                       "telefone": "11987654321"
-                    }
-                  
-            </remarks>
-            
-            <param name="id">ID do usuário</param>
-        </member>
-        <member name="M:AutoTTU.Controllers.UsuariosController.PostUsuario(AutoTTU.Models.Usuario)">
-            <summary>
-            Cadastro um usuário
-            </summary>
-            <remarks>
-            Exemplo de requisição:
-            
-                POST/api/Usuarios
-                   {
-                       "idUsuario": 1,
-                       "nome": "Gabriel Silva",
-                       "email": "gabriel@silva.com",
-                       "senha": "12345",
-                       "telefone": "11987654321"
-                    }
-                  
-            </remarks>
-            
             <param name="id">ID do usuário</param>
         </member>
         <member name="M:AutoTTU.Controllers.UsuariosController.DeleteUsuario(System.Int32)">
@@ -236,6 +224,111 @@
             Apagar um usuário pelo ID
             </summary>
             <param name="id">ID do usuário</param>
+        </member>
+        <member name="M:AutoTTU.Controllers.UsuariosController.Login(AutoTTU.Dto.LoginDto)">
+            <summary>
+            Realiza login do usuário
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Controllers.WeatherForecastController">
+            <summary>
+            Controller de exemplo para previsão do tempo (template padrão do ASP.NET Core)
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Dto.CheckinInputDto">
+            <summary>
+            DTO para entrada de dados de Checkin (POST/PUT) - sem ID
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.IdMoto">
+            <summary>
+            ID da moto associada ao check-in
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.IdUsuario">
+            <summary>
+            ID do usuário que realizou o check-in
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.AtivoChar">
+            <summary>
+            Indica se a moto foi violada durante o check-in ("S" para sim, "N" para não)
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.Observacao">
+            <summary>
+            Observações adicionais sobre o estado da moto durante o check-in
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.TimeStamp">
+            <summary>
+            Data e hora em que o check-in foi realizado (opcional - se não informado, será usado o momento atual)
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.CheckinInputDto.ImagensUrl">
+            <summary>
+            URLs das imagens capturadas durante o check-in
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Dto.MotoInputDto">
+            <summary>
+            DTO para resposta de criação de usuário (POST) - sem ID e sem senha
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.Modelo">
+            <summary>
+            Modelo da moto
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.Marca">
+            <summary>
+            Marca da moto
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.Ano">
+            <summary>
+            Ano da moto
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.Placa">
+            <summary>
+            Placa da moto
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.AtivoChar">
+            <summary>
+            Se a moto esta ativa
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.MotoInputDto.FotoUrl">
+            <summary>
+            Url da foto
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Dto.UsuarioInputDto">
+            <summary>
+            DTO para resposta de criação de usuário (POST) - sem ID e sem senha
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.UsuarioInputDto.Nome">
+            <summary>
+            Nome completo do usuário
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.UsuarioInputDto.Email">
+            <summary>
+            Endereço de e-mail do usuário
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.UsuarioInputDto.Senha">
+            <summary>
+            senha do usuário
+            </summary>
+        </member>
+        <member name="P:AutoTTU.Dto.UsuarioInputDto.Telefone">
+            <summary>
+            Número de telefone de contato do usuário
+            </summary>
         </member>
         <member name="T:AutoTTU.Migrations.InitialCreate">
             <inheritdoc />
@@ -249,17 +342,695 @@
         <member name="M:AutoTTU.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:AutoTTU.Migrations.UpdateMigration">
-            <inheritdoc />
+        <member name="T:AutoTTU.ML.ControllersML.IAController">
+            <summary>
+            Controller responsável por gerenciar predições de IA para análise de risco
+            </summary>
         </member>
-        <member name="M:AutoTTU.Migrations.UpdateMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
+        <member name="M:AutoTTU.ML.ControllersML.IAController.#ctor(AutoTTU.ML.ServicesML.IIAService,AutoTTU.Service.ICheckinService)">
+            <summary>
+            Inicializa uma nova instância do IAController
+            </summary>
+            <param name="iaService">Serviço de IA para predições</param>
+            <param name="checkinService">Serviço de checkins para buscar dados</param>
         </member>
-        <member name="M:AutoTTU.Migrations.UpdateMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
+        <member name="M:AutoTTU.ML.ControllersML.IAController.PreverDanos">
+            <summary>
+            Prevê o risco de dano para todos os checkins realizados e calcula a média das probabilidades
+            </summary>
+            <returns>Lista de predições de risco para cada checkin e média das probabilidades</returns>
         </member>
-        <member name="M:AutoTTU.Migrations.UpdateMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
+        <member name="M:AutoTTU.ML.ControllersML.IAController.PreverRisco(System.String)">
+            <summary>
+            Prevê o risco de dano para uma observação específica
+            </summary>
+            <param name="observacao">Observação a ser analisada</param>
+            <returns>Predição de risco com probabilidade</returns>
+        </member>
+        <member name="T:AutoTTU.ML.ServicesML.IAService">
+            <summary>
+            Implementação do serviço para predições de IA
+            Contém a lógica de Machine Learning para análise de risco
+            </summary>
+        </member>
+        <member name="M:AutoTTU.ML.ServicesML.IAService.CarregarDadosTreino">
+            <summary>
+            Carrega dados do banco para treinamento do modelo
+            </summary>
+        </member>
+        <member name="M:AutoTTU.ML.ServicesML.IAService.PreverRiscoAsync(System.String)">
+            <summary>
+            Prevê o risco de dano com base na observação fornecida
+            </summary>
+            <param name="observacao">Observação do checkin a ser analisada</param>
+            <returns>Predição com risco alto e probabilidade</returns>
+        </member>
+        <member name="T:AutoTTU.ML.ServicesML.IIAService">
+            <summary>
+            Interface que define os contratos de lógica de negócio para predições de IA
+            </summary>
+        </member>
+        <member name="M:AutoTTU.ML.ServicesML.IIAService.PreverRiscoAsync(System.String)">
+            <summary>
+            Prevê o risco de dano com base na observação fornecida
+            </summary>
+            <param name="observacao">Observação do checkin a ser analisada</param>
+            <returns>Predição com risco alto e probabilidade</returns>
+        </member>
+        <member name="T:AutoTTU.Repository.CheckinRepository">
+            <summary>
+            Implementação do repositório para a entidade Checkin
+            Responsável apenas pelo acesso direto aos dados no banco
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.GetAllAsync">
+            <summary>
+            Busca todos os checkins realizados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um checkin pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.AddAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Adiciona um novo checkin ao banco de dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.UpdateAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Atualiza um checkin existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um checkin do banco de dados pelo ID
+            </summary>
+            <returns>True se o checkin foi removido, False se não foi encontrado</returns>
+        </member>
+        <member name="M:AutoTTU.Repository.CheckinRepository.CheckinExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um checkin existe pelo ID
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Repository.ICheckinRepository">
+            <summary>
+            Interface que define os contratos de acesso a dados para a entidade Checkin
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.GetAllAsync">
+            <summary>
+            Busca todos os checkins realizados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um checkin pelo ID
+            </summary>
+            <param name="id">ID do Checkin</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.AddAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Adiciona um novo checkin ao banco de dados
+            </summary>
+            <param name="checkin">Objeto Checkin a ser adicionado</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.UpdateAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Atualiza um Checkin existente
+            </summary>
+            <param name="checkin">Objeto Checkin com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um Checkin do banco de dados pelo ID
+            </summary>
+            <param name="id">ID do Checkin a ser removido</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ICheckinRepository.CheckinExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um checkin existe pelo ID
+            </summary>
+            <param name="id">ID do Checkin</param>
+        </member>
+        <member name="T:AutoTTU.Repository.IMotosRepository">
+            <summary>
+            Interface que define os contratos de acesso a dados para a entidade Moto
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.GetAllAsync">
+            <summary>
+            Busca todos os motos cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca uma moto pelo ID
+            </summary>
+            <param name="id">ID da moto</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.AddAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Adiciona uma nova moto ao banco de dados
+            </summary>
+            <param name="moto">Objeto Motos a ser adicionado</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.UpdateAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+            <param name="moto">Objeto Usuario com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove uma moto do banco de dados pelo ID
+            </summary>
+            <param name="id">ID da moto a ser removido</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.MotoExisteAsync(System.Int32)">
+            <summary>
+            Verifica se uma moto existe pelo ID
+            </summary>
+            <param name="id">ID da moto</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IMotosRepository.PlacaExisteAsync(System.String)">
+            <summary>
+            Verifica se já existe uma moto com o a placa informada
+            </summary>
+            <param name="placa">Placa a ser verificada</param>
+        </member>
+        <member name="T:AutoTTU.Repository.ISlotRepository">
+            <summary>
+            Interface que define os contratos de acesso a dados para a entidade Slots
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.GetAllAsync">
+            <summary>
+            Busca todos os slots cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um slot pelo ID
+            </summary>
+            <param name="id">ID do slot</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.AddAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Adiciona um slot ao banco de dados
+            </summary>
+            <param name="slot">Objeto Slot a ser adicionado</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.UpdateAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Atualiza um slot existente
+            </summary>
+            <param name="slot">Objeto Slot com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um Slot do banco de dados pelo ID
+            </summary>
+            <param name="id">ID do Slot a ser removido</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.SlotExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um slot existe pelo ID
+            </summary>
+            <param name="id">ID da moto</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.ExisteMotoAsync(System.Int32)">
+            <summary>
+            Verifica se já existe uma moto no slot
+            </summary>
+            <param name="id">id da moto a ser verificada</param>
+        </member>
+        <member name="M:AutoTTU.Repository.ISlotRepository.ExisteMotoEmOutroSlotAsync(System.Int32,System.Int32)">
+            <summary>
+            Verifica se uma moto está em outro slot (excluindo um slot específico)
+            </summary>
+            <param name="idMoto">ID da moto a ser verificada</param>
+            <param name="idSlotExcluir">ID do slot a ser excluído da verificação</param>
+        </member>
+        <member name="T:AutoTTU.Repository.IUsuarioRepository">
+            <summary>
+            Interface que define os contratos de acesso a dados para a entidade Usuario
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.GetAllAsync">
+            <summary>
+            Busca todos os usuários cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um usuário pelo ID
+            </summary>
+            <param name="id">ID do usuário</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.GetByEmailAsync(System.String)">
+            <summary>
+            Busca um usuário pelo e-mail
+            </summary>
+            <param name="email">E-mail do usuário</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.AddAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Adiciona um novo usuário ao banco de dados
+            </summary>
+            <param name="usuario">Objeto Usuario a ser adicionado</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.UpdateAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Atualiza um usuário existente
+            </summary>
+            <param name="usuario">Objeto Usuario com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um usuário do banco de dados pelo ID
+            </summary>
+            <param name="id">ID do usuário a ser removido</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.ExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um usuário existe pelo ID
+            </summary>
+            <param name="id">ID do usuário</param>
+        </member>
+        <member name="M:AutoTTU.Repository.IUsuarioRepository.EmailExisteAsync(System.String)">
+            <summary>
+            Verifica se já existe um usuário com o e-mail informado
+            </summary>
+            <param name="email">E-mail a ser verificado</param>
+        </member>
+        <member name="T:AutoTTU.Repository.MotosRepository">
+            <summary>
+            Implementação do repositório para a entidade Moto
+            Responsável apenas pelo acesso direto aos dados no banco
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.GetAllAsync">
+            <summary>
+            Busca todos as motos cadastradas
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca uma moto pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.AddAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Adiciona uma nova moto ao banco de dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.UpdateAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove uma moto do banco de dados pelo ID
+            </summary>
+            <returns>True se a moto foi removido, False se não foi encontrada</returns>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.MotoExisteAsync(System.Int32)">
+            <summary>
+            Verifica se uma moto existe pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.MotosRepository.PlacaExisteAsync(System.String)">
+            <summary>
+            Verifica se já existe uma moto com a placa informado
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Repository.SlotRepository">
+            <summary>
+            Implementação do repositório para a entidade Moto
+            Responsável apenas pelo acesso direto aos dados no banco
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.GetAllAsync">
+            <summary>
+            Busca todos os slots cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um slot pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.AddAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Adiciona um slot moto ao banco de dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.UpdateAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Atualiza um slot existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um slot do banco de dados pelo ID
+            </summary>
+            <returns>True se o slot foi removido, False se não foi encontrada</returns>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.SlotExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um slot existe pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.SlotRepository.ExisteMotoEmOutroSlotAsync(System.Int32,System.Int32)">
+            <summary>
+            Verifica se uma moto está em outro slot (excluindo um slot específico)
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Repository.UsuarioRepository">
+            <summary>
+            Implementação do repositório para a entidade Usuario
+            Responsável apenas pelo acesso direto aos dados no banco
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.GetAllAsync">
+            <summary>
+            Busca todos os usuários cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um usuário pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.GetByEmailAsync(System.String)">
+            <summary>
+            Busca um usuário pelo e-mail
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.AddAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Adiciona um novo usuário ao banco de dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.UpdateAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Atualiza um usuário existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um usuário do banco de dados pelo ID
+            </summary>
+            <returns>True se o usuário foi removido, False se não foi encontrado</returns>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.ExisteAsync(System.Int32)">
+            <summary>
+            Verifica se um usuário existe pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Repository.UsuarioRepository.EmailExisteAsync(System.String)">
+            <summary>
+            Verifica se já existe um usuário com o e-mail informado
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Service.CheckinService">
+            <summary>
+            Implementação do serviço para a entidade Checkin
+            Contém a lógica de negócio e validações
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.CheckinService.GetAllAsync">
+            <summary>
+            Retorna todos os checkins realizados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.CheckinService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um checkin pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.CheckinService.CreateAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Cria um novo checkin após validar os dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.CheckinService.UpdateAsync(System.Int32,AutoTTU.Models.Checkin)">
+            <summary>
+            Atualiza um checkin existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.CheckinService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um checkin do sistema
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Service.ICheckinService">
+            <summary>
+            Interface que define os contratos de lógica de negócio para a entidade Checkin
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.ICheckinService.GetAllAsync">
+            <summary>
+            Retorna todos os checkins realizados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.ICheckinService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um checkin pelo ID
+            </summary>
+            <param name="id">ID do checkin</param>
+        </member>
+        <member name="M:AutoTTU.Service.ICheckinService.CreateAsync(AutoTTU.Models.Checkin)">
+            <summary>
+            Cria um novo checkin após validar os dados
+            </summary>
+            <param name="checkin">Objeto Checkin a ser criado</param>
+        </member>
+        <member name="M:AutoTTU.Service.ICheckinService.UpdateAsync(System.Int32,AutoTTU.Models.Checkin)">
+            <summary>
+            Atualiza um checkin existente
+            </summary>
+            <param name="id">ID do checkin a ser atualizado</param>
+            <param name="checkin">Objeto checkin com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Service.ICheckinService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um checkin do sistema
+            </summary>
+            <param name="id">ID do checkin a ser removido</param>
+        </member>
+        <member name="T:AutoTTU.Service.IMotosService">
+            <summary>
+            Interface que define os contratos de lógica de negócio para a entidade Moto
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.IMotosService.GetAllAsync">
+            <summary>
+            Retorna todas as motos cadastradas
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.IMotosService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca uma moto pelo ID
+            </summary>
+            <param name="id">ID da moto</param>
+        </member>
+        <member name="M:AutoTTU.Service.IMotosService.CreateAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Cria uma nova moto após validar os dados
+            </summary>
+            <param name="moto">Objeto Moto a ser criado</param>
+        </member>
+        <member name="M:AutoTTU.Service.IMotosService.UpdateAsync(System.Int32,AutoTTU.Models.Motos)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+            <param name="id">ID da moto a ser atualizado</param>
+            <param name="moto">Objeto moto com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Service.IMotosService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove uma moto do sistema
+            </summary>
+            <param name="id">ID da moto a ser removido</param>
+        </member>
+        <member name="T:AutoTTU.Service.ISlotService">
+            <summary>
+            Interface que define os contratos de lógica de negócio para a entidade Slot
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.ISlotService.GetAllAsync">
+            <summary>
+            Retorna todas as motos cadastradas
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.ISlotService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um slot pelo ID
+            </summary>
+            <param name="id">ID do slot</param>
+        </member>
+        <member name="M:AutoTTU.Service.ISlotService.CreateAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Cria um slot após validar os dados
+            </summary>
+            <param name="slot">Objeto Slot a ser criado</param>
+        </member>
+        <member name="M:AutoTTU.Service.ISlotService.UpdateAsync(System.Int32,AutoTTU.Models.Slot)">
+            <summary>
+            Atualiza slot existente
+            </summary>
+            <param name="id">ID do slot a ser atualizado</param>
+            <param name="slot">Objeto Slot com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Service.ISlotService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um slot do sistema
+            </summary>
+            <param name="id">ID do Slot a ser removido</param>
+        </member>
+        <member name="T:AutoTTU.Service.IUsuarioService">
+            <summary>
+            Interface que define os contratos de lógica de negócio para a entidade Usuario
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.GetAllAsync">
+            <summary>
+            Retorna todos os usuários cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um usuário pelo ID
+            </summary>
+            <param name="id">ID do usuário</param>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.CreateAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Cria um novo usuário após validar os dados
+            </summary>
+            <param name="usuario">Objeto Usuario a ser criado</param>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.UpdateAsync(System.Int32,AutoTTU.Models.Usuario)">
+            <summary>
+            Atualiza um usuário existente
+            </summary>
+            <param name="id">ID do usuário a ser atualizado</param>
+            <param name="usuario">Objeto Usuario com dados atualizados</param>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um usuário do sistema
+            </summary>
+            <param name="id">ID do usuário a ser removido</param>
+        </member>
+        <member name="M:AutoTTU.Service.IUsuarioService.LoginAsync(AutoTTU.Dto.LoginDto)">
+            <summary>
+            Realiza o login de um usuário
+            </summary>
+            <param name="loginDto">Dados de login (email e senha)</param>
+            <returns>Usuário autenticado ou null se credenciais inválidas</returns>
+        </member>
+        <member name="T:AutoTTU.Service.MotosService">
+            <summary>
+            Implementação do serviço para a entidade Usuario
+            Contém a lógica de negócio e validações
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.MotosService.GetAllAsync">
+            <summary>
+            Retorna todas motos cadastradas
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.MotosService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca uma moto pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.MotosService.CreateAsync(AutoTTU.Models.Motos)">
+            <summary>
+            Cria uma nova moto após validar os dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.MotosService.UpdateAsync(System.Int32,AutoTTU.Models.Motos)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.MotosService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove uma moto do sistema
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Service.SlotService">
+            <summary>
+            Implementação do serviço para a entidade Slot
+            Contém a lógica de negócio e validações
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.SlotService.GetAllAsync">
+            <summary>
+            Retorna slots cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.SlotService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um slot pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.SlotService.CreateAsync(AutoTTU.Models.Slot)">
+            <summary>
+            Cria uma nova moto após validar os dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.SlotService.UpdateAsync(System.Int32,AutoTTU.Models.Slot)">
+            <summary>
+            Atualiza um slot existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.SlotService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um slot do sistema
+            </summary>
+        </member>
+        <member name="T:AutoTTU.Service.UsuarioService">
+            <summary>
+            Implementação do serviço para a entidade Usuario
+            Contém a lógica de negócio e validações
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.GetAllAsync">
+            <summary>
+            Retorna todos os usuários cadastrados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.GetByIdAsync(System.Int32)">
+            <summary>
+            Busca um usuário pelo ID
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.CreateAsync(AutoTTU.Models.Usuario)">
+            <summary>
+            Cria um novo usuário após validar os dados
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.UpdateAsync(System.Int32,AutoTTU.Models.Usuario)">
+            <summary>
+            Atualiza um usuário existente
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.DeleteAsync(System.Int32)">
+            <summary>
+            Remove um usuário do sistema
+            </summary>
+        </member>
+        <member name="M:AutoTTU.Service.UsuarioService.LoginAsync(AutoTTU.Dto.LoginDto)">
+            <summary>
+            Realiza o login de um usuário
+            </summary>
         </member>
     </members>
 </doc>

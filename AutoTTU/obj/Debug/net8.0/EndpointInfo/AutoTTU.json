@@ -5,11 +5,12 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Checkins": {
+    "/api/v1/Checkins": {
       "get": {
         "tags": [
           "Checkins"
         ],
+        "summary": "Lista de todos os CheckIn's realizados",
         "responses": {
           "200": {
             "description": "OK",
@@ -46,21 +47,23 @@
         "tags": [
           "Checkins"
         ],
+        "summary": "Realização de CheckIn",
+        "description": "Exemplo de requisição:\r\n\r\n    POST/api/CheckIn\r\n       {\r\n            \"idMoto\": 1,\r\n            \"idUsuario\": 1,\r\n            \"ativoChar\" (se foi violada = s, se não foi violada = n): \"s\",\r\n            \"observacao\": \"Moto danificada\",\r\n            \"timeStamp\": \"2025-09-18\",\r\n            \"imagensUrl\": \"string\"\r\n        }",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             }
           }
@@ -89,15 +92,17 @@
         }
       }
     },
-    "/api/Checkins/{id}": {
+    "/api/v1/Checkins/{id}": {
       "get": {
         "tags": [
           "Checkins"
         ],
+        "summary": "Busca de CheckIn pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do CheckIn",
             "required": true,
             "schema": {
               "type": "integer",
@@ -132,10 +137,13 @@
         "tags": [
           "Checkins"
         ],
+        "summary": "Alteração de CheckIn já realizado",
+        "description": "Exemplo de requisição:\r\n\r\n    PUT/api/CheckIn\r\n       {\r\n            \"idMoto\": 1,\r\n            \"idUsuario\": 1,\r\n            \"ativoChar\" (se foi violada = s, se não foi violada = n): \"s\",\r\n            \"observacao\": \"Moto danificada\",\r\n            \"timeStamp\": \"2025-09-18\",\r\n            \"imagensUrl\": \"string\"\r\n        }",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do CheckIn",
             "required": true,
             "schema": {
               "type": "integer",
@@ -147,17 +155,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Checkin"
+                "$ref": "#/components/schemas/CheckinInputDto"
               }
             }
           }
@@ -172,10 +180,12 @@
         "tags": [
           "Checkins"
         ],
+        "summary": "Apagar CheckIn pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do CheckIn",
             "required": true,
             "schema": {
               "type": "integer",
@@ -190,11 +200,90 @@
         }
       }
     },
-    "/api/Motos": {
+    "/api/Health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Verifica o status de saúde da aplicação e suas dependências",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aplicação está saudável"
+          },
+          "503": {
+            "description": "Aplicação está com problemas ou dependências indisponíveis"
+          }
+        }
+      }
+    },
+    "/api/v1/IA/prever-danos": {
+      "post": {
+        "tags": [
+          "IA"
+        ],
+        "summary": "Prevê o risco de dano para todos os checkins realizados e calcula a média das probabilidades",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/IA/prever-risco": {
+      "post": {
+        "tags": [
+          "IA"
+        ],
+        "summary": "Prevê o risco de dano para uma observação específica",
+        "requestBody": {
+          "description": "Observação a ser analisada",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Motos": {
       "get": {
         "tags": [
           "Motos"
         ],
+        "summary": "Lista de todas as motos cadastradas",
         "responses": {
           "200": {
             "description": "OK",
@@ -231,21 +320,23 @@
         "tags": [
           "Motos"
         ],
+        "summary": "Cadastro de uma moto",
+        "description": "Exemplo de requisição:\r\n\r\n    POST/api/Motos\r\n       {\r\n         \"modelo\": \"H2\",\r\n         \"marca\": \"Honda\",\r\n         \"ano\": 2020,\r\n         \"placa\": \"FDP3467\",\r\n         \"ativoChar\": \"s\",\r\n         \"fotoUrl\": \"www.google.com/123456plcg\"\r\n       }",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             }
           }
@@ -274,15 +365,17 @@
         }
       }
     },
-    "/api/Motos/{id}": {
+    "/api/v1/Motos/{id}": {
       "get": {
         "tags": [
           "Motos"
         ],
+        "summary": "Busca de uma moto pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID da moto",
             "required": true,
             "schema": {
               "type": "integer",
@@ -317,10 +410,13 @@
         "tags": [
           "Motos"
         ],
+        "summary": "Alteração de uma moto já cadastrada",
+        "description": "Exemplo de requisição:\r\n\r\n    PUT/api/Motos\r\n       {\r\n         \"modelo\": \"H2\",\r\n         \"marca\": \"Honda\",\r\n         \"ano\": 2020,\r\n         \"placa\": \"FDP3467\",\r\n         \"ativoChar\": \"s\",\r\n         \"fotoUrl\": \"123456plcg\"\r\n       }",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID da moto",
             "required": true,
             "schema": {
               "type": "integer",
@@ -332,17 +428,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Motos"
+                "$ref": "#/components/schemas/MotoInputDto"
               }
             }
           }
@@ -357,10 +453,12 @@
         "tags": [
           "Motos"
         ],
+        "summary": "Apagar uma moto pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID da moto",
             "required": true,
             "schema": {
               "type": "integer",
@@ -375,11 +473,12 @@
         }
       }
     },
-    "/api/Slots": {
+    "/api/v1/Slot": {
       "get": {
         "tags": [
-          "Slots"
+          "Slot"
         ],
+        "summary": "Lista de todos os slots cadastrados",
         "responses": {
           "200": {
             "description": "OK",
@@ -414,23 +513,25 @@
       },
       "post": {
         "tags": [
-          "Slots"
+          "Slot"
         ],
+        "summary": "Cadastro de um slot",
+        "description": "Exemplo de requisição:\r\n\r\n    POST/api/Slots\r\n       {\r\n            \"idMoto\": 1,\r\n            \"ativoChar\": \"s\",\r\n       }",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             }
           }
@@ -459,15 +560,17 @@
         }
       }
     },
-    "/api/Slots/{id}": {
+    "/api/v1/Slot/{id}": {
       "get": {
         "tags": [
-          "Slots"
+          "Slot"
         ],
+        "summary": "Busca de um slot pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do slot",
             "required": true,
             "schema": {
               "type": "integer",
@@ -500,12 +603,15 @@
       },
       "put": {
         "tags": [
-          "Slots"
+          "Slot"
         ],
+        "summary": "Alteração de um slot já cadastrado",
+        "description": "Exemplo de requisição:\r\n\r\n    PUT/api/Slots\r\n       {\r\n            \"idMoto\": 1,\r\n            \"ativoChar\": \"s\",\r\n       }",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do usuário",
             "required": true,
             "schema": {
               "type": "integer",
@@ -517,17 +623,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Slot"
+                "$ref": "#/components/schemas/SlotsInputDto"
               }
             }
           }
@@ -540,12 +646,14 @@
       },
       "delete": {
         "tags": [
-          "Slots"
+          "Slot"
         ],
+        "summary": "Apagar slot pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do Slot",
             "required": true,
             "schema": {
               "type": "integer",
@@ -560,11 +668,12 @@
         }
       }
     },
-    "/api/Usuarios": {
+    "/api/v1/Usuarios": {
       "get": {
         "tags": [
           "Usuarios"
         ],
+        "summary": "Lista de todos os usuários cadastrados",
         "responses": {
           "200": {
             "description": "OK",
@@ -601,21 +710,22 @@
         "tags": [
           "Usuarios"
         ],
+        "summary": "Cadastro de um usuário",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             }
           }
@@ -644,15 +754,17 @@
         }
       }
     },
-    "/api/Usuarios/{id}": {
+    "/api/v1/Usuarios/{id}": {
       "get": {
         "tags": [
           "Usuarios"
         ],
+        "summary": "Busca de um usuário pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do usuário",
             "required": true,
             "schema": {
               "type": "integer",
@@ -687,10 +799,12 @@
         "tags": [
           "Usuarios"
         ],
+        "summary": "Alteração de um usuário já cadastrado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do usuário",
             "required": true,
             "schema": {
               "type": "integer",
@@ -702,17 +816,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Usuario"
+                "$ref": "#/components/schemas/UsuarioInputDto"
               }
             }
           }
@@ -727,10 +841,12 @@
         "tags": [
           "Usuarios"
         ],
+        "summary": "Apagar um usuário pelo ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "ID do usuário",
             "required": true,
             "schema": {
               "type": "integer",
@@ -745,50 +861,34 @@
         }
       }
     },
-    "/api/Usuarios/Login": {
+    "/api/v1/Usuarios/Login": {
       "post": {
         "tags": [
           "Usuarios"
         ],
+        "summary": "Realiza login do usuário",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Login"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Login"
+                "$ref": "#/components/schemas/LoginDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Login"
+                "$ref": "#/components/schemas/LoginDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -799,6 +899,22 @@
           "WeatherForecast"
         ],
         "operationId": "GetWeatherForecast",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-version",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -880,7 +996,54 @@
         },
         "additionalProperties": false
       },
-      "Login": {
+      "CheckinInputDto": {
+        "required": [
+          "ativoChar",
+          "idMoto",
+          "idUsuario",
+          "imagensUrl",
+          "observacao"
+        ],
+        "type": "object",
+        "properties": {
+          "idMoto": {
+            "type": "integer",
+            "description": "ID da moto associada ao check-in",
+            "format": "int32"
+          },
+          "idUsuario": {
+            "type": "integer",
+            "description": "ID do usuário que realizou o check-in",
+            "format": "int32"
+          },
+          "ativoChar": {
+            "maxLength": 1,
+            "minLength": 1,
+            "type": "string",
+            "description": "Indica se a moto foi violada durante o check-in (\"S\" para sim, \"N\" para não)"
+          },
+          "observacao": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Observações adicionais sobre o estado da moto durante o check-in"
+          },
+          "timeStamp": {
+            "type": "string",
+            "description": "Data e hora em que o check-in foi realizado (opcional - se não informado, será usado o momento atual)",
+            "format": "date-time",
+            "nullable": true
+          },
+          "imagensUrl": {
+            "maxLength": 2048,
+            "minLength": 1,
+            "type": "string",
+            "description": "URLs das imagens capturadas durante o check-in"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DTO para entrada de dados de Checkin (POST/PUT) - sem ID"
+      },
+      "LoginDto": {
         "required": [
           "email",
           "senha"
@@ -899,6 +1062,43 @@
           }
         },
         "additionalProperties": false
+      },
+      "MotoInputDto": {
+        "type": "object",
+        "properties": {
+          "modelo": {
+            "type": "string",
+            "description": "Modelo da moto",
+            "nullable": true
+          },
+          "marca": {
+            "type": "string",
+            "description": "Marca da moto",
+            "nullable": true
+          },
+          "ano": {
+            "type": "integer",
+            "description": "Ano da moto",
+            "format": "int32"
+          },
+          "placa": {
+            "type": "string",
+            "description": "Placa da moto",
+            "nullable": true
+          },
+          "ativoChar": {
+            "type": "string",
+            "description": "Se a moto esta ativa",
+            "nullable": true
+          },
+          "fotoUrl": {
+            "type": "string",
+            "description": "Url da foto",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "DTO para resposta de criação de usuário (POST) - sem ID e sem senha"
       },
       "Motos": {
         "required": [
@@ -974,6 +1174,20 @@
         },
         "additionalProperties": false
       },
+      "SlotsInputDto": {
+        "type": "object",
+        "properties": {
+          "idMoto": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ativoChar": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Usuario": {
         "required": [
           "email",
@@ -1010,6 +1224,33 @@
         },
         "additionalProperties": false
       },
+      "UsuarioInputDto": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "Nome completo do usuário",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "Endereço de e-mail do usuário",
+            "nullable": true
+          },
+          "senha": {
+            "type": "string",
+            "description": "senha do usuário",
+            "nullable": true
+          },
+          "telefone": {
+            "type": "string",
+            "description": "Número de telefone de contato do usuário",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "DTO para resposta de criação de usuário (POST) - sem ID e sem senha"
+      },
       "WeatherForecast": {
         "type": "object",
         "properties": {
@@ -1033,6 +1274,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "description": "API Key necessária para acessar os endpoints. Insira sua API Key no campo abaixo.",
+        "name": "X-API-Key",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "ApiKey": [ ]
+    }
+  ]
 }

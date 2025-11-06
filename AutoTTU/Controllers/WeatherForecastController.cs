@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutoTTU.Controllers;
 
+/// <summary>
+/// Controller de exemplo para previsão do tempo (template padrão do ASP.NET Core)
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase

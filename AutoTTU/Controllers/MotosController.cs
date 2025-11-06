@@ -1,158 +1,172 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoTTU.Connection;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoTTU.Models;
+using AutoTTU.Service;
+using AutoTTU.Dto;
 
 namespace AutoTTU.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Controller responsável por gerenciar as motos cadastradas no sistema
+    /// </summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class MotosController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IMotosService _service;
 
-        public MotosController(AppDbContext context)
+
+        public MotosController(IMotosService service)
         {
-            _context = context;
+            _service = service;
         }
 
         /// <summary>
         /// Lista de todas as motos cadastradas
         /// </summary>
-        // GET: api/Motos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Motos>>> GetMotos()
         {
-            return await _context.Motos.ToListAsync();
+            var motos = await _service.GetAllAsync();
+            return Ok(motos);
         }
 
         /// <summary>
         /// Busca de uma moto pelo ID
         /// </summary>
         /// <param name="id">ID da moto</param>
-        // GET: api/Motos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Motos>> GetMotos(int id)
+        public async Task<ActionResult<Motos>> GetMoto(int id)
         {
-            var motos = await _context.Motos.FindAsync(id);
+            var moto = await _service.GetByIdAsync(id);
 
-            if (motos == null)
+            if (moto == null)
             {
                 return NotFound();
             }
 
-            return motos;
-        }
-
-        /// <summary>
-        /// Alteração de uma moto já cadastrada
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição:
-        /// 
-        ///     PUT/api/Motos
-        ///        {
-        ///          "idMoto": 1,
-        ///          "modelo": "H2",
-        ///          "marca": "Honda",
-        ///          "ano": 2020,
-        ///          "placa": "FDP3467",
-        ///          "ativoChar": "s",
-        ///          "status": true,
-        ///          "fotoUrl": "123456plcg"
-        ///        }
-        ///       
-        /// </remarks>
-        /// 
-        /// <param name="id">ID da moto</param>
-
-
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMotos(int id, Motos motos)
-        {
-            if (id != motos.IdMoto)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(motos).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MotosExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(moto);
         }
 
         /// <summary>
         /// Cadastro de uma moto
         /// </summary>
-        /// <remarks>
+        /// /// <remarks>
         /// Exemplo de requisição:
         /// 
         ///     POST/api/Motos
         ///        {
-        ///          "idMoto": 1,
         ///          "modelo": "H2",
         ///          "marca": "Honda",
         ///          "ano": 2020,
         ///          "placa": "FDP3467",
         ///          "ativoChar": "s",
-        ///          "status": true,
+        ///          "fotoUrl": "www.google.com/123456plcg"
+        ///        }
+        ///       
+        /// </remarks>
+
+        [HttpPost]
+
+        public async Task<ActionResult<Motos>> PostMoto(MotoInputDto motoDto)
+        {
+            try
+            {
+                // Converte DTO para modelo, garantindo que o ID seja 0 (banco vai gerar automaticamente)
+                var moto = new Motos
+                {
+                    Modelo = motoDto.Modelo,
+                    Marca = motoDto.Marca,
+                    Ano = motoDto.Ano,
+                    Placa = motoDto.Placa,
+                    AtivoChar = motoDto.AtivoChar,
+                    FotoUrl = motoDto.FotoUrl,
+                };
+
+                var novaMoto = await _service.CreateAsync(moto);
+                return CreatedAtAction("GetMoto", new { id = novaMoto.IdMoto }, novaMoto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Alteração de uma moto já cadastrada
+        /// </summary>
+        /// /// <remarks>
+        /// Exemplo de requisição:
+        /// 
+        ///     PUT/api/Motos
+        ///        {
+        ///          "modelo": "H2",
+        ///          "marca": "Honda",
+        ///          "ano": 2020,
+        ///          "placa": "FDP3467",
+        ///          "ativoChar": "s",
         ///          "fotoUrl": "123456plcg"
         ///        }
         ///       
         /// </remarks>
-        [HttpPost]
-        public async Task<ActionResult<Motos>> PostMotos(Motos motos)
-        {
-            _context.Motos.Add(motos);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMotos", new { id = motos.IdMoto }, motos);
+        /// <param name="id">ID da moto</param>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutMoto(int id, MotoInputDto motoDto)
+        {
+            var moto = new Motos
+            {
+                Modelo = motoDto.Modelo,
+                Marca = motoDto.Marca,
+                Ano = motoDto.Ano,
+                Placa = motoDto.Placa,
+                AtivoChar = motoDto.AtivoChar,
+                FotoUrl = motoDto.FotoUrl,
+            };
+
+            try
+            {
+                await _service.UpdateAsync(id, moto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
 
         /// <summary>
         /// Apagar uma moto pelo ID
         /// </summary>
         /// <param name="id">ID da moto</param>
-        // DELETE: api/Motos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMotos(int id)
+        public async Task<IActionResult> DeleteMoto(int id)
         {
-            var motos = await _context.Motos.FindAsync(id);
-            if (motos == null)
+            try
+            {
+                await _service.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
-            _context.Motos.Remove(motos);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool MotosExists(int id)
-        {
-            return _context.Motos.Any(e => e.IdMoto == id);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         

@@ -1,0 +1,9 @@
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\bin\Debug\net8.0\.msCoverageSourceRootsMapping_AutoTTU.Tests
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_AutoTTU.Tests
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.csproj.AssemblyReference.cache
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\MvcTestingAppManifest.json
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.AssemblyInfoInputs.cache
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.AssemblyInfo.cs
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.csproj.CoreCompileInputs.cache
+C:\Users\dudab\source\repos\AutoTTU\AutoTTU.Tests\obj\Debug\net8.0\AutoTTU.Tests.sourcelink.json
