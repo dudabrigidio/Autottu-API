@@ -14,7 +14,9 @@ Atráves desse sistema, iremos garantir o bom funcionamento do pátio e a organi
 ## 🧪 Integrantes do Projeto
 
 Maria Eduarda Brigidio - RM558575 
+
 André Luís Mesquita de Abreu- RM558159
+
 Rafael Bompadre Lima - RM556459
 
 
@@ -484,6 +486,7 @@ A API está configurada para aceitar requisições de qualquer origem em desenvo
 ## 📝 Licença
 
 Este projeto é parte de um trabalho acadêmico.
+
 
 
 
