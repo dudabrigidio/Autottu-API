@@ -11,6 +11,12 @@ Por meio desse sistema, os operadores do pátio poderão acessar as informaçõe
 Para garantir o bom funcionamento do sistema, uma IA tirará fotos do pátio a cada hora e reportará possíveis erros, como a ausência de uma moto em uma vaga que deveria estar ocupada, falhas ou danos em sensores ou >scanners, entre outros.
 Atráves desse sistema, iremos garantir o bom funcionamento do pátio e a organização de forma automatizada, otimizando tempo e promovendo um ambiente mais eficiente e confiável
 
+## 🧪 Integrantes do Projeto
+
+Maria Eduarda Brigidio - RM558575 
+André Luís Mesquita de Abreu- RM558159
+Rafael Bompadre Lima - RM556459
+
 
 ## 🎯 Sobre o Projeto
 
@@ -478,6 +484,7 @@ A API está configurada para aceitar requisições de qualquer origem em desenvo
 ## 📝 Licença
 
 Este projeto é parte de um trabalho acadêmico.
+
 
 
 
